@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Design tokens */
+:root {
+  --chocolate-dark: #2C1000;
+  --chocolate-medium: #5C2D0A;
+  --gold: #C47A3A;
+  --gold-bright: #EAB308;
+  --cream: #FEF6EC;
+  --cream-light: #FFFAF4;
+  --border-gold: #E8C99A;
+  --text-brown: #8B5E3C;
+}
+
+/* Shimmer skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+.pattern-bg {
+  background-image: radial-gradient(rgba(232, 201, 154, 0.15) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.dot-pattern {
+  background-image: radial-gradient(rgba(232, 201, 154, 0.15) 2px, transparent 2px);
+  background-size: 30px 30px;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.page-transition {
+  animation: fadeUp 220ms ease-out;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-primary px-5 py-3 font-semibold text-surface transition-all duration-200 cursor-pointer hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-xl border border-primary px-5 py-3 font-semibold text-primary transition-all duration-200 cursor-pointer hover:bg-surface;
+  }
+
+  .field {
+    @apply w-full rounded-xl border border-border bg-surface px-4 py-3 text-textDark outline-none transition-all duration-200 placeholder:text-textMuted focus:border-primary focus:ring-2 focus:ring-primary/20;
+  }
+
+  .label {
+    @apply mb-2 block text-sm font-semibold text-textDark;
+  }
+
+  .admin-card {
+    @apply rounded-2xl border border-border bg-surface p-5 shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+
+  .card-hover {
+    @apply shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer;
+  }
+
+  .chocolate-text {
+    color: var(--chocolate-dark);
+  }
+
+  .chocolate-bg {
+    background-color: var(--chocolate-medium);
+  }
+
+  .gold-text {
+    color: var(--gold);
+  }
+
+  .gold-bg {
+    background-color: var(--gold);
+  }
+
+  .cream-bg {
+    background-color: var(--cream);
+  }
+
+  .cream-light-bg {
+    background-color: var(--cream-light);
+  }
+
+  .border-gold {
+    border-color: var(--border-gold);
+  }
+}
