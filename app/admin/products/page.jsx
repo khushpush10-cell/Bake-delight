@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from "firebase/firestore";
-import { Edit, PlusCircle, Trash2 } from "lucide-react";
+import { collection, deleteDoc, doc, getDocs, limit, query, updateDoc } from "firebase/firestore";
+import { Edit, PlusCircle, Trash2, Loader2 } from "lucide-react";
 import AdminShell from "@/components/AdminShell";
 import ProductModal from "@/components/ProductModal";
 import { getFirebaseDb } from "@/lib/firebase";
@@ -13,16 +13,22 @@ export default function AdminProductsPage() {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true);
         const db = getFirebaseDb();
-        const snapshot = await getDocs(collection(db, "products"));
+        // Use limit(50) to prevent slow loading with large datasets
+        const q = query(collection(db, "products"), limit(50));
+        const snapshot = await getDocs(q);
         setProducts(snapshot.docs.map((productDoc) => ({ id: productDoc.id, ...productDoc.data() })));
       } catch (error) {
         console.error('Error fetching products:', error);
-        toast.error('Failed to load products');
+        toast.error('Failed to load products. Please check your connection.');
+      } finally {
+        setLoading(false);
       }
     };
     
@@ -30,13 +36,24 @@ export default function AdminProductsPage() {
   }, []);
 
   const toggleVisibility = async (product) => {
-    await updateDoc(doc(getFirebaseDb(), "products", product.id), { visible: !product.visible });
+    try {
+      await updateDoc(doc(getFirebaseDb(), "products", product.id), { visible: !product.visible });
+      toast.success(product.visible ? "Product hidden from store" : "Product now visible on store");
+    } catch (error) {
+      console.error('Error toggling visibility:', error);
+      toast.error('Failed to update product visibility');
+    }
   };
 
   const deleteProduct = async (product) => {
     if (!window.confirm(`Delete ${product.name}?`)) return;
-    await deleteDoc(doc(getFirebaseDb(), "products", product.id));
-    toast.success("Product deleted");
+    try {
+      await deleteDoc(doc(getFirebaseDb(), "products", product.id));
+      toast.success("Product deleted successfully");
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      toast.error('Failed to delete product');
+    }
   };
 
   const openAddModal = () => {
@@ -59,23 +76,44 @@ export default function AdminProductsPage() {
     closeModal();
   };
 
+  if (loading) {
+    return (
+      <AdminShell>
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <h1 className="font-heading text-4xl font-bold" style={{ color: '#2D1F3D' }}>Products</h1>
+            <p className="mt-2" style={{ color: '#9B8AAA' }}>Manage all bakery products.</p>
+          </div>
+        </div>
+        <div className="mt-7 flex items-center justify-center py-20">
+          <Loader2 className="h-8 w-8 animate-spin" style={{ color: '#7B68B5' }} />
+          <span className="ml-3" style={{ color: '#9B8AAA' }}>Loading products...</span>
+        </div>
+      </AdminShell>
+    );
+  }
+
   return (
     <AdminShell>
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h1 className="font-heading text-4xl font-bold text-primary">Products</h1>
-          <p className="mt-2 text-textMuted">Manage all bakery products.</p>
+          <h1 className="font-heading text-4xl font-bold" style={{ color: '#2D1F3D' }}>Products</h1>
+          <p className="mt-2" style={{ color: '#9B8AAA' }}>Manage all bakery products.</p>
         </div>
-        <button onClick={openAddModal} className="btn-primary gap-2">
+        <button 
+          onClick={openAddModal} 
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white rounded-xl transition-all"
+          style={{ background: '#7B68B5' }}
+        >
           <PlusCircle size={18} />
           Add New Product
         </button>
       </div>
 
-      <div className="mt-7 overflow-hidden rounded-2xl border border-border bg-surface">
+      <div className="mt-7 overflow-hidden rounded-2xl border bg-white" style={{ borderColor: '#E0D8F5' }}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left">
-            <thead className="bg-background text-sm text-textMuted">
+            <thead className="text-sm" style={{ background: '#FAF7FF', color: '#9B8AAA' }}>
               <tr>
                 <th className="p-4">Image</th>
                 <th className="p-4">Name</th>
@@ -85,7 +123,7 @@ export default function AdminProductsPage() {
                 <th className="p-4">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y" style={{ borderColor: '#E0D8F5' }}>
               {products.map((product) => (
                 <tr key={product.id}>
                   <td className="p-4">
@@ -93,15 +131,17 @@ export default function AdminProductsPage() {
                       <Image src={product.imageUrl} alt={product.name} fill sizes="56px" className="object-cover" />
                     </div>
                   </td>
-                  <td className="p-4 font-semibold">{product.name}</td>
-                  <td className="p-4 text-textMuted">{product.category}</td>
-                  <td className="p-4 font-bold text-primary">Rs. {Number(product.price).toLocaleString("en-PK")}</td>
+                  <td className="p-4 font-semibold" style={{ color: '#2D1F3D' }}>{product.name}</td>
+                  <td className="p-4" style={{ color: '#9B8AAA' }}>{product.category}</td>
+                  <td className="p-4 font-bold" style={{ color: '#7B68B5' }}>Rs. {Number(product.price).toLocaleString("en-PK")}</td>
                   <td className="p-4">
                     <button
                       onClick={() => toggleVisibility(product)}
-                      className={`rounded-full px-3 py-1 text-xs font-bold ${
-                        product.visible ? "bg-success/10 text-success" : "bg-error/10 text-error"
-                      }`}
+                      className="rounded-full px-3 py-1 text-xs font-bold"
+                      style={{
+                        background: product.visible ? 'rgba(22,163,74,0.1)' : 'rgba(220,38,38,0.1)',
+                        color: product.visible ? '#16a34a' : '#dc2626'
+                      }}
                     >
                       {product.visible ? "Live" : "Hidden"}
                     </button>
@@ -110,14 +150,16 @@ export default function AdminProductsPage() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => openEditModal(product)}
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border text-primary"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-colors"
+                        style={{ borderColor: '#E0D8F5', color: '#7B68B5' }}
                         aria-label={`Edit ${product.name}`}
                       >
                         <Edit size={18} />
                       </button>
                       <button
                         onClick={() => deleteProduct(product)}
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border text-error"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-colors hover:bg-red-50"
+                        style={{ borderColor: '#E0D8F5', color: '#dc2626' }}
                         aria-label={`Delete ${product.name}`}
                       >
                         <Trash2 size={18} />
