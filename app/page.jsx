@@ -1,16 +1,24 @@
+'use client';
+
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar, Phone } from "lucide-react";
 import Footer from "@/components/Footer";
 import MenuClient from "@/components/MenuClient";
 import Navbar from "@/components/Navbar";
-import { Sparkle, FloatingHeart, WheatSprig, Cookie } from "@/components/illustrations/BakeryIllustrations";
+import { 
+  LavenderSprig, 
+  OrnamentalCorner, 
+  GoldDivider, 
+  Macaron, 
+  CuteCupcake, 
+  CakeOnStand, 
+  GoldSparkle, 
+  SmallFlower,
+  OrnamentalFrame,
+  FloatingHeart
+} from "@/components/illustrations/BakeryIllustrations";
 
-// Ornamental Divider Component - Pastel
-const OrnamentDivider = ({ light = false }) => (
-  <div className="ornament-divider" style={{ background: light ? 'var(--gold-accent)' : 'var(--lavender-primary)' }} />
-);
-
-// Section Header Component - Pastel
+// Section Header Component with Gold Divider
 const SectionHeader = ({ tag, title, light = false, centered = true }) => (
   <div className={`mb-12 ${centered ? 'text-center' : ''}`}>
     {tag && (
@@ -36,7 +44,7 @@ const SectionHeader = ({ tag, title, light = false, centered = true }) => (
       {title}
     </h2>
     <div className="flex justify-center mt-6">
-      <OrnamentDivider light={light} />
+      <GoldDivider width={180} />
     </div>
   </div>
 );
@@ -48,38 +56,47 @@ export default function HomePage() {
       <main>
         {/* SECTION A — Hero with Illustrations */}
         <section 
-          className="min-h-screen flex items-center relative overflow-hidden pattern-dots"
+          className="min-h-screen flex items-center relative overflow-hidden hero-dot-pattern"
           style={{ background: 'var(--bg-main)' }}
         >
-          {/* Decorative Illustrations */}
-          <div className="deco-illustration top-20 right-[15%] opacity-40">
-            <WheatSprig size={80} />
+          {/* LEFT SIDE Decorative Elements */}
+          <div className="deco-element" style={{ position: 'absolute', top: 0, left: 0, opacity: 0.6 }}>
+            <OrnamentalCorner size={70} />
           </div>
-          <div className="deco-illustration bottom-32 left-[5%] opacity-30" style={{ transform: 'rotate(-15deg)' }}>
-            <Cookie size={50} />
+          <div className="deco-element" style={{ position: 'absolute', bottom: '20px', left: '10px', opacity: 0.5, transform: 'rotate(-15deg)' }}>
+            <LavenderSprig size={60} />
           </div>
-          <div className="deco-illustration top-[30%] right-[8%] opacity-50">
-            <Sparkle size={24} color="var(--gold-accent)" />
+          {/* Floating hearts on left */}
+          <div className="deco-element float-animation" style={{ position: 'absolute', top: '15%', left: '8%', opacity: 0.7 }}>
+            <FloatingHeart size={14} color="#F4C2B0" />
           </div>
-          <div className="deco-illustration bottom-[25%] left-[8%] opacity-40">
-            <Sparkle size={16} color="var(--lavender-primary)" />
+          <div className="deco-element float-slow" style={{ position: 'absolute', top: '35%', left: '3%', opacity: 0.6 }}>
+            <FloatingHeart size={18} color="#F4C2B0" />
+          </div>
+          <div className="deco-element float-animation" style={{ position: 'absolute', bottom: '30%', left: '15%', opacity: 0.5 }}>
+            <FloatingHeart size={22} color="#F4C2B0" />
           </div>
 
           <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full py-20 relative z-10">
             <div className="grid lg:grid-cols-[55%_45%] gap-16 items-center">
               {/* LEFT SIDE — Content */}
-              <div className="flex flex-col hero-left">
-                {/* Pill Tag - Caveat font */}
-                <div 
-                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[14px] w-fit mb-6"
-                  style={{ 
-                    background: 'var(--lavender-pale)', 
-                    color: 'var(--lavender-deep)',
-                    border: '1px solid var(--lavender-soft)',
-                    fontFamily: "'Caveat', cursive"
-                  }}
-                >
-                  ✦ Artisan Home Bakery
+              <div className="flex flex-col hero-content relative">
+                {/* Pill Tag with Ornamental Frame */}
+                <div className="relative w-fit mb-6">
+                  <div className="absolute inset-0" style={{ transform: 'translate(-8px, -6px)' }}>
+                    <OrnamentalFrame width={200} height={36} />
+                  </div>
+                  <div 
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[14px] relative z-10"
+                    style={{ 
+                      background: 'var(--lavender-pale)', 
+                      color: 'var(--lavender-deep)',
+                      border: '1px solid var(--lavender-soft)',
+                      fontFamily: "'Caveat', cursive"
+                    }}
+                  >
+                    ✦ Artisan Home Bakery
+                  </div>
                 </div>
 
                 {/* Main Heading - Playfair Display */}
@@ -106,8 +123,10 @@ export default function HomePage() {
                   <FloatingHeart size={20} color="var(--peach-primary)" />
                 </div>
 
-                {/* Ornamental Divider */}
-                <OrnamentDivider />
+                {/* Gold Divider */}
+                <div className="my-6">
+                  <GoldDivider width={120} />
+                </div>
 
                 {/* Subtext */}
                 <p 
@@ -137,53 +156,68 @@ export default function HomePage() {
               </div>
 
               {/* RIGHT SIDE — Illustration Scene */}
-              <div className="relative hero-illustration float-animation hidden lg:flex items-center justify-center">
-                <div 
-                  className="relative w-[420px] h-[420px] flex items-center justify-center"
-                  style={{ borderRadius: '50%', background: 'var(--lavender-pale)' }}
-                >
-                  {/* Main cake slice */}
-                  <div className="absolute z-10">
-                    <svg width="160" height="160" viewBox="0 0 80 80">
-                      <ellipse cx="40" cy="65" rx="30" ry="6" fill="#F2C4A0" opacity="0.4"/>
-                      <polygon points="40,10 10,65 70,65" fill="#F2C4A0"/>
-                      <polygon points="40,10 15,58 65,58" fill="#FAE0CC"/>
-                      <rect x="10" y="57" width="60" height="10" rx="5" fill="#B8A9D9"/>
-                      <rect x="10" y="50" width="60" height="9" rx="4" fill="#D4CCF0"/>
-                      <ellipse cx="40" cy="12" rx="8" ry="5" fill="#F7E07A"/>
-                    </svg>
+              <div className="relative hero-illustration-area hidden lg:flex items-center justify-center">
+                <div className="hero-circle-bg relative">
+                  {/* Corner ornaments */}
+                  <div className="absolute top-2 left-2">
+                    <OrnamentalCorner size={50} />
                   </div>
-                  {/* Cupcake top-right */}
-                  <div className="absolute top-8 right-8">
-                    <svg width="100" height="100" viewBox="0 0 70 70">
-                      <ellipse cx="35" cy="62" rx="22" ry="5" fill="#F2C4A0" opacity="0.3"/>
-                      <rect x="15" y="42" width="40" height="22" rx="8" fill="#F2C4A0"/>
-                      <path d="M12 42 Q35 10 58 42" fill="#B8A9D9"/>
-                      <path d="M16 42 Q35 15 54 42" fill="#D4CCF0"/>
-                      <circle cx="35" cy="18" r="5" fill="#F7E07A"/>
-                    </svg>
+                  <div className="absolute top-2 right-2" style={{ transform: 'rotate(90deg)' }}>
+                    <OrnamentalCorner size={50} />
                   </div>
-                  {/* Cookie bottom-left */}
-                  <div className="absolute bottom-12 left-8">
-                    <svg width="80" height="80" viewBox="0 0 60 60">
-                      <circle cx="30" cy="30" r="26" fill="#F2C4A0"/>
-                      <circle cx="30" cy="30" r="24" fill="#FAE0CC"/>
-                      <circle cx="20" cy="22" r="4" fill="#B8A9D9"/>
-                      <circle cx="35" cy="18" r="3" fill="#B8A9D9"/>
-                      <circle cx="40" cy="32" r="4" fill="#7B68B5"/>
-                      <circle cx="22" cy="38" r="3" fill="#B8A9D9"/>
-                      <circle cx="34" cy="40" r="3.5" fill="#7B68B5"/>
-                    </svg>
+                  <div className="absolute bottom-2 left-2" style={{ transform: 'rotate(-90deg)' }}>
+                    <OrnamentalCorner size={50} />
                   </div>
-                  {/* Sparkles */}
-                  <div className="absolute top-4 left-12">
-                    <Sparkle size={20} color="var(--gold-accent)" />
+                  <div className="absolute bottom-2 right-2" style={{ transform: 'rotate(180deg)' }}>
+                    <OrnamentalCorner size={50} />
                   </div>
-                  <div className="absolute bottom-20 right-4">
-                    <Sparkle size={16} color="var(--lavender-primary)" />
+
+                  {/* Main cake on stand */}
+                  <div className="float-animation z-10">
+                    <CakeOnStand size={180} />
                   </div>
-                  <div className="absolute top-20 right-4 opacity-60">
-                    <FloatingHeart size={16} color="var(--peach-primary)" />
+
+                  {/* Lavender sprigs on sides */}
+                  <div className="absolute left-4 top-1/3 opacity-70">
+                    <LavenderSprig size={70} />
+                  </div>
+                  <div className="absolute right-4 top-1/3 opacity-70" style={{ transform: 'scaleX(-1)' }}>
+                    <LavenderSprig size={70} />
+                  </div>
+
+                  {/* Macarons below */}
+                  <div className="absolute bottom-16 left-1/4">
+                    <Macaron size={60} color="#C4B5E8" />
+                  </div>
+                  <div className="absolute bottom-12 right-1/3">
+                    <Macaron size={55} color="#F4C2B0" />
+                  </div>
+
+                  {/* Cute cupcake on side */}
+                  <div className="absolute top-1/3 right-8 float-slow">
+                    <CuteCupcake size={80} />
+                  </div>
+
+                  {/* Gold sparkles scattered */}
+                  <div className="absolute top-8 left-12 sparkle-animation">
+                    <GoldSparkle size={12} />
+                  </div>
+                  <div className="absolute top-16 right-16 sparkle-animation" style={{ animationDelay: '0.5s' }}>
+                    <GoldSparkle size={16} />
+                  </div>
+                  <div className="absolute bottom-20 left-16 sparkle-animation" style={{ animationDelay: '1s' }}>
+                    <GoldSparkle size={20} />
+                  </div>
+                  <div className="absolute top-1/2 right-4 sparkle-animation" style={{ animationDelay: '1.5s' }}>
+                    <GoldSparkle size={12} />
+                  </div>
+
+                  {/* Small flowers */}
+                  <div className="absolute bottom-8 left-8 float-slow">
+                    <SmallFlower size={24} />
+                  </div>
+                  <div className="absolute top-8 right-1/4 float-slow" style={{ animationDelay: '1s' }}>
+                    <SmallFlower size={24} />
                   </div>
                 </div>
               </div>
@@ -211,10 +245,40 @@ export default function HomePage() {
 
         {/* SECTION C — Bestsellers */}
         <section 
-          className="py-24"
+          className="py-24 relative overflow-hidden"
           style={{ background: 'white' }}
         >
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          {/* Decorative elements - far left and right */}
+          <div className="deco-element" style={{ position: 'absolute', left: '-20px', top: '50%', transform: 'translateY(-50%)', opacity: 0.12 }}>
+            <LavenderSprig size={100} />
+          </div>
+          <div className="deco-element" style={{ position: 'absolute', right: '-20px', top: '50%', transform: 'translateY(-50%) scaleX(-1)', opacity: 0.12 }}>
+            <LavenderSprig size={100} />
+          </div>
+          
+          {/* Gold sparkles scattered */}
+          <div className="deco-element" style={{ position: 'absolute', top: '15%', left: '10%', opacity: 0.4 }}>
+            <GoldSparkle size={14} />
+          </div>
+          <div className="deco-element" style={{ position: 'absolute', top: '25%', right: '15%', opacity: 0.4 }}>
+            <GoldSparkle size={12} />
+          </div>
+          <div className="deco-element" style={{ position: 'absolute', bottom: '20%', left: '8%', opacity: 0.4 }}>
+            <GoldSparkle size={16} />
+          </div>
+          <div className="deco-element" style={{ position: 'absolute', bottom: '30%', right: '12%', opacity: 0.4 }}>
+            <GoldSparkle size={14} />
+          </div>
+          
+          {/* Small flowers near heading */}
+          <div className="deco-element" style={{ position: 'absolute', top: '8%', left: '20%', opacity: 0.5 }}>
+            <SmallFlower size={20} />
+          </div>
+          <div className="deco-element" style={{ position: 'absolute', top: '10%', right: '25%', opacity: 0.5 }}>
+            <SmallFlower size={20} />
+          </div>
+
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
             <SectionHeader 
               tag="Our Selection"
               title="Our Bestsellers"
@@ -253,10 +317,10 @@ export default function HomePage() {
               </svg>
               {/* Sparkle decorations */}
               <div className="absolute -top-4 -right-4">
-                <Sparkle size={20} color="#F7E07A" />
+                <GoldSparkle size={20} />
               </div>
               <div className="absolute bottom-8 -left-8">
-                <Sparkle size={16} color="#B8A9D9" />
+                <GoldSparkle size={16} />
               </div>
             </div>
           </div>
@@ -449,11 +513,10 @@ export default function HomePage() {
         {/* SECTION F — How It Works */}
         <section 
           id="how-it-works"
-          className="py-24 relative overflow-hidden"
-          style={{ background: 'var(--lavender-deep)' }}
+          className="py-24 relative overflow-hidden how-it-works-bg"
         >
           {/* Decorative subtitle */}
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
             <div className="text-center mb-4">
               <span 
                 className="text-[18px] tracking-[2px]"
@@ -470,19 +533,33 @@ export default function HomePage() {
               {[
                 {
                   step: "01",
-                  icon: <svg width="60" height="60" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#F2C4A0"/><circle cx="30" cy="30" r="24" fill="#FAE0CC"/><circle cx="20" cy="22" r="4" fill="#B8A9D9"/><circle cx="35" cy="18" r="3" fill="#B8A9D9"/><circle cx="40" cy="32" r="4" fill="#7B68B5"/></svg>,
+                  icon: <CuteCupcake size={64} />,
                   title: "Browse & Pick",
                   description: "Choose from our wide selection of freshly baked goods. From cakes to cookies, we have something for everyone."
                 },
                 {
                   step: "02",
-                  icon: <svg width="80" height="40" viewBox="0 0 100 40"><rect x="20" y="15" width="60" height="10" rx="5" fill="#D4CCF0"/><rect x="0" y="10" width="22" height="20" rx="10" fill="#B8A9D9"/><rect x="78" y="10" width="22" height="20" rx="10" fill="#B8A9D9"/></svg>,
+                  icon: (
+                    <div 
+                      className="w-16 h-16 rounded-full flex items-center justify-center"
+                      style={{ background: 'var(--lavender-pale)' }}
+                    >
+                      <Calendar size={32} style={{ color: 'var(--lavender-deep)' }} />
+                    </div>
+                  ),
                   title: "Schedule Delivery",
                   description: "Pick your preferred delivery date. We require at least 24 hours notice to ensure everything is baked fresh."
                 },
                 {
                   step: "03",
-                  icon: <svg width="60" height="60" viewBox="0 0 60 60"><rect x="15" y="5" width="30" height="50" rx="6" fill="#B8A9D9"/><rect x="18" y="12" width="24" height="36" rx="3" fill="#FAE0CC"/><circle cx="30" cy="46" r="4" fill="#F7E07A"/></svg>,
+                  icon: (
+                    <div 
+                      className="w-16 h-16 rounded-full flex items-center justify-center"
+                      style={{ background: 'var(--lavender-pale)' }}
+                    >
+                      <Phone size={32} style={{ color: 'var(--lavender-deep)' }} />
+                    </div>
+                  ),
                   title: "Order on WhatsApp",
                   description: "Send us your order via WhatsApp. We'll confirm all details and arrange delivery to your doorstep."
                 }
@@ -495,6 +572,14 @@ export default function HomePage() {
                     border: '1px solid rgba(255, 255, 255, 0.15)'
                   }}
                 >
+                  {/* Corner sparkles */}
+                  <div className="absolute top-3 left-3 opacity-30">
+                    <GoldSparkle size={12} />
+                  </div>
+                  <div className="absolute bottom-3 right-3 opacity-30">
+                    <GoldSparkle size={12} />
+                  </div>
+                  
                   {/* Step Number */}
                   <span 
                     className="absolute top-4 right-5 text-[64px] font-bold opacity-25"

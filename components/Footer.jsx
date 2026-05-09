@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Instagram, Facebook, MessageCircle, Twitter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useStoreSettings } from "@/context/StoreSettingsContext";
-import { Sparkle } from "@/components/illustrations/BakeryIllustrations";
+import { LavenderSprig, FloatingHeart, GoldSparkle } from "@/components/illustrations/BakeryIllustrations";
 
 // TikTok SVG Icon Component
 const TikTokIcon = ({ className }) => (
@@ -42,27 +42,40 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer style={{ background: 'var(--text-dark)' }}>
+    <footer className="footer-bg relative overflow-hidden">
+      {/* Large lavender sprig decorations - far edges */}
+      <div className="deco-element" style={{ position: 'absolute', right: '-40px', bottom: '10%', opacity: 0.05 }}>
+        <LavenderSprig size={160} />
+      </div>
+      <div className="deco-element" style={{ position: 'absolute', left: '-30px', top: '20%', opacity: 0.04 }}>
+        <LavenderSprig size={140} />
+      </div>
+      
       {/* Top border - lavender accent */}
       <div style={{ borderTop: '3px solid var(--lavender-primary)' }} />
       
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-20 py-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-20 py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
           {/* Column 1 - Brand */}
           <div className="relative">
-            <h3 
-              className="text-2xl font-bold italic mb-4"
-              style={{ 
-                fontFamily: "'Playfair Display', serif", 
-                color: 'var(--lavender-soft)'
-              }}
-            >
-              {mounted ? settings.storeName : "Bake Delight"}
-            </h3>
+            <div className="flex items-center gap-3 mb-4">
+              <h3 
+                className="text-2xl font-bold italic"
+                style={{ 
+                  fontFamily: "'Playfair Display', serif", 
+                  color: 'var(--lavender-soft)'
+                }}
+              >
+                {mounted ? settings.storeName : "Bake Delight"}
+              </h3>
+              <div className="opacity-50">
+                <LavenderSprig size={40} />
+              </div>
+            </div>
             <p 
-              className="text-sm leading-relaxed mb-6"
+              className="text-sm leading-relaxed mb-4"
               style={{ 
                 color: 'var(--text-muted)',
                 fontFamily: "'DM Sans', sans-serif"
@@ -70,6 +83,11 @@ export default function Footer() {
             >
               {mounted ? settings.footerDescription : "Fresh home-baked cakes, cookies, pastries and custom treats made with love."}
             </p>
+            {/* Floating hearts near tagline */}
+            <div className="flex gap-2 mb-4">
+              <FloatingHeart size={14} color="#F4C2B0" />
+              <FloatingHeart size={14} color="#F4C2B0" />
+            </div>
             <div className="flex gap-3">
               <SocialIcon 
                 href={mounted ? settings.instagram?.url : null}
@@ -110,7 +128,7 @@ export default function Footer() {
             </div>
             {/* Decorative sparkle */}
             <div className="absolute -top-2 -right-2">
-              <Sparkle size={12} color="var(--lavender-primary)" />
+              <GoldSparkle size={12} />
             </div>
           </div>
 
@@ -240,7 +258,7 @@ export default function Footer() {
             </div>
             {/* Decorative sparkle */}
             <div className="absolute -bottom-2 -right-4">
-              <Sparkle size={12} color="var(--lavender-primary)" />
+              <GoldSparkle size={12} />
             </div>
           </div>
         </div>

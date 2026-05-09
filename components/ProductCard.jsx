@@ -3,14 +3,20 @@
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { GoldSparkle, SmallFlower } from "@/components/illustrations/BakeryIllustrations";
 
 export default function ProductCard({ product, className = "" }) {
   const { addToCart } = useCart();
 
   return (
     <article 
-      className={`group product-card-lav ${className}`}
+      className={`group product-card-lav product-card-content relative ${className}`}
     >
+      {/* Small flower in top-right corner */}
+      <div className="absolute top-2 right-2 z-10" style={{ opacity: 0.4 }}>
+        <SmallFlower size={16} />
+      </div>
+      
       {/* Image Container */}
       <div className="relative h-[240px] overflow-hidden" style={{ borderRadius: '20px 20px 0 0' }}>
         <Image
@@ -57,15 +63,20 @@ export default function ProductCard({ product, className = "" }) {
           {product.description}
         </p>
         
-        {/* Price - Gold accent */}
-        <div 
-          className="text-[24px] font-bold mb-4"
-          style={{ 
-            fontFamily: "'Playfair Display', serif",
-            color: 'var(--lavender-deep)'
-          }}
-        >
-          Rs. {Number(product.price).toLocaleString("en-PK")}
+        {/* Price with gold sparkle */}
+        <div className="flex items-center gap-2 mb-4">
+          <div 
+            className="text-[24px] font-bold"
+            style={{ 
+              fontFamily: "'Playfair Display', serif",
+              color: 'var(--lavender-deep)'
+            }}
+          >
+            Rs. {Number(product.price).toLocaleString("en-PK")}
+          </div>
+          <div style={{ opacity: 0.7 }}>
+            <GoldSparkle size={12} />
+          </div>
         </div>
         
         {/* Add to Cart Button - Lavender theme */}

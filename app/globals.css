@@ -141,6 +141,46 @@ a {
   background-size: 24px 24px;
 }
 
+/* Hero illustration area */
+.hero-illustration-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-circle-bg {
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F0ECFF 0%, #FAE0D8 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E8E0F8;
+}
+
+/* Announcement bar styles */
+.announcement-bar {
+  background: var(--lavender-deep);
+  color: white;
+}
+
+/* Marquee strip */
+.marquee-strip {
+  background: var(--peach-primary);
+  color: var(--text-dark);
+}
+
+/* Section backgrounds */
+.how-it-works-bg {
+  background: var(--lavender-deep);
+}
+
+.footer-bg {
+  background: var(--text-dark);
+}
+
 /* Utility Classes */
 .skeleton {
   background: linear-gradient(90deg, var(--lavender-pale) 25%, var(--border-soft) 50%, var(--lavender-pale) 75%);
