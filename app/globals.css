@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@400;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,18 +7,26 @@
 :root {
   color-scheme: light;
   
-  /* Premium Bakery Color System */
-  --choc-darkest: #1A0A00;
-  --choc-dark: #2C1000;
-  --choc-primary: #5C2D0A;
-  --choc-medium: #8B5E3C;
-  --choc-accent: #C47A3A;
-  --choc-gold: #D4A853;
-  --choc-light: #E8C99A;
-  --choc-cream: #FEF6EC;
-  --choc-ivory: #FFFAF4;
-  --choc-surface: #FFF8F2;
+  /* Pastel Bakery Color System - Lavender & Peach */
+  --lavender-deep: #7B68B5;
+  --lavender-primary: #B8A9D9;
+  --lavender-soft: #D4CCF0;
+  --lavender-pale: #EDE8FF;
+  --peach-primary: #F2C4A0;
+  --peach-soft: #FAE0CC;
+  --peach-pale: #FFF0E8;
+  --gold-accent: #F7E07A;
+  --gold-dark: #D4A820;
+  --text-dark: #2D1F3D;
+  --text-medium: #5A4570;
+  --text-muted: #9B8AAA;
+  --bg-main: #FAF7FF;
+  --bg-surface: #FFFFFF;
+  --bg-section: #F5F0FF;
+  --border-soft: #E0D8F5;
   --wa-green: #25D366;
+  --success: #16a34a;
+  --error: #dc2626;
 }
 
 * {
@@ -32,17 +40,17 @@ html {
 }
 
 body {
-  background: var(--choc-cream);
-  color: var(--choc-dark);
+  background: var(--bg-main);
+  color: var(--text-dark);
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   line-height: 1.75;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 700;
-  color: var(--choc-dark);
+  color: var(--text-dark);
 }
 
 p, span, a, button, input, textarea, select, label {
@@ -50,7 +58,7 @@ p, span, a, button, input, textarea, select, label {
 }
 
 ::selection {
-  background: var(--choc-accent);
+  background: var(--lavender-primary);
   color: white;
 }
 
@@ -87,7 +95,7 @@ a {
 
 /* Utility Classes */
 .skeleton {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--lavender-pale) 25%, var(--border-soft) 50%, var(--lavender-pale) 75%);
   background-size: 1000px 100%;
   animation: shimmer 2s infinite;
 }
@@ -95,12 +103,19 @@ a {
 .marquee-track {
   display: flex;
   width: 200%;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track-fast {
+  display: flex;
+  width: 200%;
   animation: marquee 20s linear infinite;
 }
 
 .pattern-bg {
-  background-image: radial-gradient(rgba(196, 122, 58, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(circle, var(--lavender-soft) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: var(--bg-main);
 }
 
 .line-clamp-2 {
@@ -113,7 +128,7 @@ a {
 .ornament-divider {
   position: relative;
   height: 1px;
-  background: var(--choc-accent);
+  background: var(--lavender-primary);
   width: 120px;
   margin: 24px 0;
 }
@@ -124,8 +139,8 @@ a {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background: var(--choc-cream);
-  color: var(--choc-accent);
+  background: var(--bg-main);
+  color: var(--lavender-primary);
   padding: 0 12px;
   font-size: 14px;
 }
@@ -141,7 +156,7 @@ a {
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--choc-accent);
+  background: var(--peach-primary);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -151,65 +166,137 @@ a {
   transform: scaleX(1);
 }
 
+/* Floating animation for illustrations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.float-animation {
+  animation: float 4s ease-in-out infinite;
+}
+
+.float-animation-delay {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+/* Decorative elements */
+.deco-illustration {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+}
+
+/* Caveat font for decorative text */
+.font-caveat {
+  font-family: 'Caveat', cursive;
+}
+
+/* Pattern dot background for hero */
+.pattern-dots {
+  background-image: radial-gradient(circle, var(--lavender-soft) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: var(--bg-main);
+}
+
 @layer components {
-  /* Button Components */
-  .btn-primary-choc {
-    @apply inline-flex items-center justify-center rounded-[10px] px-8 py-3.5 text-sm font-medium tracking-wide transition-all duration-300;
-    background: var(--choc-primary);
+  /* Button Components - Pastel Theme */
+  .btn-primary-lav {
+    @apply inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium tracking-wide transition-all duration-300;
+    background: var(--lavender-deep);
     color: white;
+    border-radius: 28px;
   }
   
-  .btn-primary-choc:hover {
-    background: var(--choc-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(92, 45, 10, 0.2);
+  .btn-primary-lav:hover {
+    background: #6A5A9E;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(123, 104, 181, 0.35);
   }
   
-  .btn-secondary-choc {
-    @apply inline-flex items-center justify-center rounded-[10px] px-8 py-3.5 text-sm font-medium tracking-wide transition-all duration-300;
-    background: transparent;
-    color: var(--choc-primary);
-    border: 1.5px solid var(--choc-accent);
+  .btn-secondary-lav {
+    @apply inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium tracking-wide transition-all duration-300;
+    background: var(--peach-pale);
+    color: var(--text-dark);
+    border: 1.5px solid var(--peach-primary);
+    border-radius: 28px;
   }
   
-  .btn-secondary-choc:hover {
-    background: var(--choc-cream);
+  .btn-secondary-lav:hover {
+    background: var(--peach-soft);
   }
   
-  /* Card Components */
+  /* Card Components - Pastel Theme */
   .product-card-premium {
-    background: white;
-    border: 1px solid var(--choc-light);
-    border-radius: 20px;
+    background: var(--bg-main);
+    border: 1.5px solid var(--border-soft);
+    border-radius: 24px;
     overflow: hidden;
-    transition: all 0.35s ease;
+    transition: all 0.3s ease;
   }
   
   .product-card-premium:hover {
-    box-shadow: 0 20px 60px rgba(92, 45, 10, 0.12);
-    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(123, 104, 181, 0.15);
+    transform: translateY(-8px);
   }
   
   .product-card-premium:hover .card-image {
-    transform: scale(1.06);
+    transform: scale(1.05);
   }
   
-  /* Form Components */
-  .field-choc {
-    @apply w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200;
-    border-color: var(--choc-light);
+  /* Form Components - Pastel Theme */
+  .field-lav {
+    @apply w-full border px-4 py-3 text-sm outline-none transition-all duration-200;
+    border-color: var(--border-soft);
     background: white;
-    color: var(--choc-dark);
+    color: var(--text-dark);
+    border-radius: 12px;
   }
   
-  .field-choc:focus {
-    border-color: var(--choc-accent);
-    box-shadow: 0 0 0 3px rgba(196, 122, 58, 0.1);
+  .field-lav:focus {
+    border-color: var(--lavender-primary);
+    box-shadow: 0 0 0 3px rgba(184, 169, 217, 0.15);
+  }
+  
+  .field-lav-white {
+    @apply w-full border px-4 py-3 text-sm outline-none transition-all duration-200;
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-radius: 12px;
+  }
+  
+  .field-lav-white::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .field-lav-white:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
   }
   
   /* Admin Components */
   .admin-card {
     @apply rounded-2xl border bg-white p-6 shadow-sm;
-    border-color: var(--choc-light);
+    border-color: var(--border-soft);
   }
+}
+
+/* Mobile Responsive Rules */
+@media (max-width: 768px) {
+  .hero-section { grid-template-columns: 1fr; min-height: auto; padding: 80px 24px 40px; }
+  .hero-illustration { display: none; }
+  .hero-left { text-align: center; align-items: center; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .about-strip { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr; gap: 16px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .cart-layout { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 2.4rem; }
 }

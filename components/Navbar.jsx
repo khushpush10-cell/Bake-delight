@@ -6,6 +6,7 @@ import { Menu, ShoppingCart, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { useStoreSettings } from "@/context/StoreSettingsContext";
+import { Sparkle } from "@/components/illustrations/BakeryIllustrations";
 
 const links = [
   { href: "/", label: "Home" },
@@ -40,14 +41,14 @@ export default function Navbar() {
       {/* Top Announcement Bar with Marquee */}
       <div 
         className="overflow-hidden whitespace-nowrap"
-        style={{ background: 'var(--choc-darkest)', height: '36px' }}
+        style={{ background: 'var(--lavender-deep)', height: '36px' }}
       >
         <div className="marquee-track flex items-center h-full">
           {[...Array(4)].map((_, i) => (
             <span 
               key={i} 
-              className="mx-8 text-xs tracking-[2px] uppercase"
-              style={{ color: 'var(--choc-light)' }}
+              className="mx-8 text-[11px] tracking-[2px] uppercase"
+              style={{ color: 'white' }}
             >
               ✦ {marqueeText}
             </span>
@@ -59,25 +60,25 @@ export default function Navbar() {
       <header 
         className="sticky top-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? 'rgba(255, 250, 244, 0.97)' : 'var(--choc-ivory)',
+          background: scrolled ? 'rgba(255, 255, 255, 0.97)' : 'white',
           backdropFilter: scrolled ? 'blur(12px)' : 'none',
-          boxShadow: scrolled ? '0 2px 20px rgba(92, 45, 10, 0.08)' : 'none',
-          borderBottom: '1px solid var(--choc-light)'
+          boxShadow: scrolled ? '0 4px 24px rgba(123, 104, 181, 0.1)' : 'none',
+          borderBottom: '2px solid var(--lavender-pale)'
         }}
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8" style={{ height: '72px' }}>
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8" style={{ height: '70px' }}>
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-1">
+          <Link href="/" className="flex items-center gap-2">
             <span 
-              className="text-[26px] font-bold italic"
-              style={{ fontFamily: "'Cormorant Garamond', serif", color: 'var(--choc-dark)' }}
+              className="text-[24px] font-bold italic"
+              style={{ fontFamily: "'Playfair Display', serif", color: 'var(--lavender-deep)' }}
             >
               Bake
             </span>
-            <span style={{ color: 'var(--choc-accent)' }}>·</span>
+            <Sparkle size={18} color="var(--gold-accent)" />
             <span 
-              className="text-[26px] font-bold italic"
-              style={{ fontFamily: "'Cormorant Garamond', serif", color: 'var(--choc-dark)' }}
+              className="text-[24px] font-bold italic"
+              style={{ fontFamily: "'Playfair Display', serif", color: 'var(--lavender-deep)' }}
             >
               {mounted ? settings.storeName?.replace('Bake ', '') : 'Delight'}
             </span>
@@ -91,7 +92,7 @@ export default function Navbar() {
                 href={link.href}
                 className="underline-slide relative text-[13px] font-medium uppercase tracking-[1.5px] transition-colors duration-300"
                 style={{ 
-                  color: pathname === link.href ? 'var(--choc-primary)' : 'var(--choc-medium)',
+                  color: pathname === link.href ? 'var(--lavender-deep)' : 'var(--text-medium)',
                   fontFamily: "'DM Sans', sans-serif"
                 }}
               >
@@ -106,8 +107,11 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/cart"
-              className="relative flex items-center gap-2 px-5 py-2 rounded-lg text-white text-[13px] font-medium transition-all duration-300 hover:opacity-90"
-              style={{ background: 'var(--choc-primary)' }}
+              className="relative flex items-center gap-2 px-6 py-2 text-white text-[13px] font-medium transition-all duration-300"
+              style={{ 
+                background: 'var(--lavender-deep)', 
+                borderRadius: '24px'
+              }}
             >
               <ShoppingCart size={16} />
               <span>Cart</span>
@@ -115,8 +119,8 @@ export default function Navbar() {
                 <span 
                   className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold"
                   style={{ 
-                    background: 'var(--choc-gold)', 
-                    color: 'var(--choc-dark)'
+                    background: 'var(--gold-accent)', 
+                    color: 'var(--text-dark)'
                   }}
                 >
                   {itemCount}
@@ -129,8 +133,8 @@ export default function Navbar() {
           <button
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg md:hidden transition-all duration-200"
             style={{ 
-              border: '1px solid var(--choc-light)',
-              color: 'var(--choc-dark)'
+              border: '1.5px solid var(--lavender-pale)',
+              color: 'var(--lavender-deep)'
             }}
             onClick={() => setOpen((value) => !value)}
             aria-label="Toggle navigation"
@@ -142,8 +146,8 @@ export default function Navbar() {
         {/* Mobile Menu Overlay */}
         {open && (
           <div 
-            className="fixed inset-0 top-[108px] z-40 md:hidden"
-            style={{ background: 'var(--choc-ivory)' }}
+            className="fixed inset-0 top-[106px] z-40 md:hidden"
+            style={{ background: 'white' }}
           >
             <div className="flex flex-col p-6 gap-2">
               {links.map((link) => (
@@ -152,15 +156,15 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className="flex items-center justify-between py-4 text-lg font-medium"
-                  style={{ color: 'var(--choc-dark)' }}
+                  style={{ color: 'var(--text-dark)' }}
                 >
                   {link.label}
                   {link.label === "Cart" && itemCount > 0 && (
                     <span 
                       className="px-3 py-1 rounded-full text-sm"
                       style={{ 
-                        background: 'var(--choc-gold)', 
-                        color: 'var(--choc-dark)'
+                        background: 'var(--gold-accent)', 
+                        color: 'var(--text-dark)'
                       }}
                     >
                       {itemCount}
@@ -171,8 +175,11 @@ export default function Navbar() {
               <Link
                 href="/cart"
                 onClick={() => setOpen(false)}
-                className="mt-4 flex items-center justify-center gap-2 py-3 rounded-lg text-white font-medium"
-                style={{ background: 'var(--choc-primary)' }}
+                className="mt-4 flex items-center justify-center gap-2 py-3 text-white font-medium"
+                style={{ 
+                  background: 'var(--lavender-deep)',
+                  borderRadius: '24px'
+                }}
               >
                 <ShoppingCart size={18} />
                 View Cart {itemCount > 0 && `(${itemCount})`}

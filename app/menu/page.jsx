@@ -1,23 +1,41 @@
 import Footer from "@/components/Footer";
 import MenuClient from "@/components/MenuClient";
 import Navbar from "@/components/Navbar";
+import { Sparkle, FloatingHeart, WheatSprig } from "@/components/illustrations/BakeryIllustrations";
 
 export default function MenuPage() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--choc-cream)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--bg-section)' }}>
       <Navbar />
       
-      {/* Hero Banner */}
+      {/* Hero Banner - Pastel */}
       <section 
-        className="h-[280px] flex items-center justify-center text-center"
-        style={{ background: 'var(--choc-primary)' }}
+        className="h-[280px] flex items-center justify-center text-center relative overflow-hidden pattern-dots"
+        style={{ background: 'var(--lavender-pale)' }}
       >
-        <div>
+        {/* Decorative illustrations */}
+        <div className="absolute top-8 left-[10%] opacity-40">
+          <WheatSprig size={60} />
+        </div>
+        <div className="absolute bottom-8 right-[10%] opacity-30">
+          <Sparkle size={40} color="var(--gold-accent)" />
+        </div>
+        <div className="absolute top-12 right-[20%] opacity-50">
+          <FloatingHeart size={24} color="var(--peach-primary)" />
+        </div>
+
+        <div className="relative z-10">
+          <span 
+            className="text-[16px] uppercase tracking-[2px] block mb-2"
+            style={{ color: 'var(--lavender-deep)', fontFamily: "'Caveat', cursive" }}
+          >
+            Fresh from the oven
+          </span>
           <h1 
-            className="text-[56px] italic mb-4"
+            className="text-[52px] italic mb-4"
             style={{ 
-              fontFamily: "'Cormorant Garamond', serif",
-              color: 'white',
+              fontFamily: "'Playfair Display', serif",
+              color: 'var(--text-dark)',
               fontWeight: 700
             }}
           >
@@ -26,7 +44,7 @@ export default function MenuPage() {
           <p 
             className="text-[15px] max-w-md mx-auto"
             style={{ 
-              color: 'var(--choc-light)',
+              color: 'var(--text-medium)',
               fontFamily: "'DM Sans', sans-serif"
             }}
           >
@@ -36,7 +54,7 @@ export default function MenuPage() {
           <div className="flex justify-center mt-6">
             <div 
               className="w-24 h-[2px]"
-              style={{ background: 'var(--choc-gold)' }}
+              style={{ background: 'var(--lavender-primary)' }}
             />
           </div>
         </div>

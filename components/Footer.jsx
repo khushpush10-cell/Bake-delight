@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Instagram, Facebook, MessageCircle, Twitter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useStoreSettings } from "@/context/StoreSettingsContext";
+import { Sparkle } from "@/components/illustrations/BakeryIllustrations";
 
 // TikTok SVG Icon Component
 const TikTokIcon = ({ className }) => (
@@ -19,10 +20,10 @@ const SocialIcon = ({ href, children, show }) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
+      className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[var(--lavender-primary)]"
       style={{ 
-        border: '1px solid rgba(196, 122, 58, 0.3)',
-        color: 'var(--choc-accent)'
+        border: '1.5px solid var(--lavender-primary)',
+        color: 'var(--lavender-soft)'
       }}
     >
       {children}
@@ -41,21 +42,21 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer style={{ background: 'var(--choc-darkest)' }}>
-      {/* Top border */}
-      <div style={{ borderTop: '1px solid rgba(196, 122, 58, 0.15)' }} />
+    <footer style={{ background: 'var(--text-dark)' }}>
+      {/* Top border - lavender accent */}
+      <div style={{ borderTop: '3px solid var(--lavender-primary)' }} />
       
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-20 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
           {/* Column 1 - Brand */}
-          <div>
+          <div className="relative">
             <h3 
               className="text-2xl font-bold italic mb-4"
               style={{ 
-                fontFamily: "'Cormorant Garamond', serif", 
-                color: 'var(--choc-ivory)'
+                fontFamily: "'Playfair Display', serif", 
+                color: 'var(--lavender-soft)'
               }}
             >
               {mounted ? settings.storeName : "Bake Delight"}
@@ -63,7 +64,7 @@ export default function Footer() {
             <p 
               className="text-sm leading-relaxed mb-6"
               style={{ 
-                color: 'var(--choc-medium)',
+                color: 'var(--text-muted)',
                 fontFamily: "'DM Sans', sans-serif"
               }}
             >
@@ -98,14 +99,18 @@ export default function Footer() {
                 href={`https://wa.me/${mounted ? settings.whatsappNumber : "923001234567"}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
+                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[var(--lavender-primary)]"
                 style={{ 
-                  border: '1px solid rgba(196, 122, 58, 0.3)',
-                  color: 'var(--choc-accent)'
+                  border: '1.5px solid var(--lavender-primary)',
+                  color: 'var(--lavender-soft)'
                 }}
               >
                 <MessageCircle size={18} />
               </a>
+            </div>
+            {/* Decorative sparkle */}
+            <div className="absolute -top-2 -right-2">
+              <Sparkle size={12} color="var(--lavender-primary)" />
             </div>
           </div>
 
@@ -114,7 +119,7 @@ export default function Footer() {
             <h4 
               className="text-xs uppercase tracking-[2px] mb-6"
               style={{ 
-                color: 'var(--choc-accent)',
+                color: 'var(--lavender-primary)',
                 fontFamily: "'DM Sans', sans-serif",
                 fontWeight: 500
               }}
@@ -126,7 +131,7 @@ export default function Footer() {
                 <Link 
                   href="/" 
                   className="text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Home
                 </Link>
@@ -135,7 +140,7 @@ export default function Footer() {
                 <Link 
                   href="/menu" 
                   className="text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Menu
                 </Link>
@@ -144,7 +149,7 @@ export default function Footer() {
                 <Link 
                   href="/cart" 
                   className="text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Cart
                 </Link>
@@ -157,7 +162,7 @@ export default function Footer() {
             <h4 
               className="text-xs uppercase tracking-[2px] mb-6"
               style={{ 
-                color: 'var(--choc-accent)',
+                color: 'var(--lavender-primary)',
                 fontFamily: "'DM Sans', sans-serif",
                 fontWeight: 500
               }}
@@ -169,7 +174,7 @@ export default function Footer() {
                 <Link 
                   href="/menu?category=Cakes" 
                   className="text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Cakes
                 </Link>
@@ -178,7 +183,7 @@ export default function Footer() {
                 <Link 
                   href="/menu?category=Cookies" 
                   className="text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Cookies
                 </Link>
@@ -187,7 +192,7 @@ export default function Footer() {
                 <Link 
                   href="/menu?category=Pastries" 
                   className="text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Pastries
                 </Link>
@@ -196,7 +201,7 @@ export default function Footer() {
                 <Link 
                   href="/menu?category=Cupcakes" 
                   className="text-sm transition-colors duration-200 hover:text-white"
-                  style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                  style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
                 >
                   Cupcakes
                 </Link>
@@ -205,11 +210,11 @@ export default function Footer() {
           </div>
 
           {/* Column 4 - Contact */}
-          <div>
+          <div className="relative">
             <h4 
               className="text-xs uppercase tracking-[2px] mb-6"
               style={{ 
-                color: 'var(--choc-accent)',
+                color: 'var(--lavender-primary)',
                 fontFamily: "'DM Sans', sans-serif",
                 fontWeight: 500
               }}
@@ -222,16 +227,20 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-lg font-medium transition-colors duration-200"
-                style={{ color: 'var(--choc-ivory)', fontFamily: "'DM Sans', sans-serif" }}
+                style={{ color: 'var(--lavender-soft)', fontFamily: "'DM Sans', sans-serif" }}
               >
                 +{mounted ? settings.whatsappNumber : "923001234567"}
               </a>
               <p 
                 className="text-sm leading-relaxed"
-                style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+                style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
               >
                 Delivery available across Karachi and surrounding areas
               </p>
+            </div>
+            {/* Decorative sparkle */}
+            <div className="absolute -bottom-2 -right-4">
+              <Sparkle size={12} color="var(--lavender-primary)" />
             </div>
           </div>
         </div>
@@ -240,18 +249,18 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div 
         className="max-w-7xl mx-auto px-6 lg:px-20 py-6"
-        style={{ borderTop: '1px solid rgba(196, 122, 58, 0.1)' }}
+        style={{ borderTop: '1px solid rgba(184, 169, 217, 0.15)' }}
       >
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p 
             className="text-xs"
-            style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+            style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
           >
             © {currentYear} {mounted ? settings.storeName : "Bake Delight"}. All rights reserved.
           </p>
           <p 
             className="text-xs"
-            style={{ color: 'var(--choc-medium)', fontFamily: "'DM Sans', sans-serif" }}
+            style={{ color: 'var(--text-muted)', fontFamily: "'DM Sans', sans-serif" }}
           >
             Made with ♥ in Pakistan
           </p>
