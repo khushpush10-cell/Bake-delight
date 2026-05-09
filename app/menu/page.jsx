@@ -4,17 +4,49 @@ import Navbar from "@/components/Navbar";
 
 export default function MenuPage() {
   return (
-    <div className="page-transition min-h-screen">
+    <div className="min-h-screen" style={{ background: 'var(--choc-cream)' }}>
       <Navbar />
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="font-heading text-5xl font-bold text-primary">Menu</h1>
-          <p className="mt-3 max-w-2xl text-textMuted">
-            Choose from fresh cakes, cookies, pastries, cupcakes and brownies.
+      
+      {/* Hero Banner */}
+      <section 
+        className="h-[280px] flex items-center justify-center text-center"
+        style={{ background: 'var(--choc-primary)' }}
+      >
+        <div>
+          <h1 
+            className="text-[56px] italic mb-4"
+            style={{ 
+              fontFamily: "'Cormorant Garamond', serif",
+              color: 'white',
+              fontWeight: 700
+            }}
+          >
+            Our Menu
+          </h1>
+          <p 
+            className="text-[15px] max-w-md mx-auto"
+            style={{ 
+              color: 'var(--choc-light)',
+              fontFamily: "'DM Sans', sans-serif"
+            }}
+          >
+            Everything baked fresh to order — choose your favourites
           </p>
+          {/* Ornamental Divider */}
+          <div className="flex justify-center mt-6">
+            <div 
+              className="w-24 h-[2px]"
+              style={{ background: 'var(--choc-gold)' }}
+            />
+          </div>
         </div>
+      </section>
+      
+      {/* Main Content */}
+      <main className="mx-auto max-w-7xl px-6 lg:px-8 py-16">
         <MenuClient />
       </main>
+      
       <Footer />
     </div>
   );

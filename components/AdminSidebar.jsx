@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FolderOpen, LayoutDashboard, LogOut, Package, PlusCircle, Tags } from "lucide-react";
+import { FolderOpen, LayoutDashboard, LogOut, Package, PlusCircle, Settings, Tags } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { getFirebaseAuth } from "@/lib/firebase";
 
@@ -10,7 +10,8 @@ const links = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/products/new", label: "Add Product", icon: PlusCircle },
-  { href: "/admin/categories", label: "Categories", icon: Tags }
+  { href: "/admin/categories", label: "Categories", icon: Tags },
+  { href: "/admin/settings", label: "Store Settings", icon: Settings }
 ];
 
 export default function AdminSidebar() {

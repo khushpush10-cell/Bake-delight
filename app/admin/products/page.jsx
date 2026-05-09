@@ -1,22 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { collection, deleteDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from "firebase/firestore";
 import { Edit, PlusCircle, Trash2 } from "lucide-react";
 import AdminShell from "@/components/AdminShell";
+import ProductModal from "@/components/ProductModal";
 import { getFirebaseDb } from "@/lib/firebase";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
 
   useEffect(() => {
-    const db = getFirebaseDb();
-    return onSnapshot(collection(db, "products"), (snapshot) => {
-      setProducts(snapshot.docs.map((productDoc) => ({ id: productDoc.id, ...productDoc.data() })));
-    });
+    const fetchProducts = async () => {
+      try {
+        const db = getFirebaseDb();
+        const snapshot = await getDocs(collection(db, "products"));
+        setProducts(snapshot.docs.map((productDoc) => ({ id: productDoc.id, ...productDoc.data() })));
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        toast.error('Failed to load products');
+      }
+    };
+    
+    fetchProducts();
   }, []);
 
   const toggleVisibility = async (product) => {
@@ -29,6 +39,26 @@ export default function AdminProductsPage() {
     toast.success("Product deleted");
   };
 
+  const openAddModal = () => {
+    setEditingProduct(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (product) => {
+    setEditingProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setEditingProduct(null);
+  };
+
+  const handleModalSave = () => {
+    // Products list will update automatically via onSnapshot
+    closeModal();
+  };
+
   return (
     <AdminShell>
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
@@ -36,10 +66,10 @@ export default function AdminProductsPage() {
           <h1 className="font-heading text-4xl font-bold text-primary">Products</h1>
           <p className="mt-2 text-textMuted">Manage all bakery products.</p>
         </div>
-        <Link href="/admin/products/new" className="btn-primary gap-2">
+        <button onClick={openAddModal} className="btn-primary gap-2">
           <PlusCircle size={18} />
           Add New Product
-        </Link>
+        </button>
       </div>
 
       <div className="mt-7 overflow-hidden rounded-2xl border border-border bg-surface">
@@ -78,13 +108,13 @@ export default function AdminProductsPage() {
                   </td>
                   <td className="p-4">
                     <div className="flex gap-2">
-                      <Link
-                        href={`/admin/products/edit/${product.id}`}
+                      <button
+                        onClick={() => openEditModal(product)}
                         className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border text-primary"
                         aria-label={`Edit ${product.name}`}
                       >
                         <Edit size={18} />
-                      </Link>
+                      </button>
                       <button
                         onClick={() => deleteProduct(product)}
                         className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border text-error"
@@ -100,6 +130,14 @@ export default function AdminProductsPage() {
           </table>
         </div>
       </div>
+      
+      {/* Product Modal */}
+      <ProductModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        product={editingProduct}
+        onSave={handleModalSave}
+      />
     </AdminShell>
   );
 }

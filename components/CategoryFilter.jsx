@@ -4,21 +4,32 @@ export default function CategoryFilter({ categories, activeCategory, onChange })
   const pills = ["All", ...categories.map((category) => category.name)];
 
   return (
-    <div className="-mx-4 overflow-x-auto px-4 pb-2">
-      <div className="flex min-w-max gap-3">
-        {pills.map((category) => (
-          <button
-            key={category}
-            onClick={() => onChange(category)}
-            className={`rounded-full border px-5 py-2 text-sm font-semibold transition ${
-              activeCategory === category
-                ? "border-primary bg-primary text-surface"
-                : "border-border bg-surface text-textDark hover:border-primary"
-            }`}
-          >
-            {category}
-          </button>
-        ))}
+    <div 
+      className="sticky top-[108px] z-40 py-5 px-6 lg:px-8 mb-8 -mx-6 lg:-mx-8"
+      style={{ 
+        background: 'var(--choc-ivory)',
+        borderBottom: '1px solid var(--choc-light)'
+      }}
+    >
+      <div className="flex flex-wrap gap-3 max-w-7xl mx-auto">
+        {pills.map((category) => {
+          const isActive = activeCategory === category;
+          return (
+            <button
+              key={category}
+              onClick={() => onChange(category)}
+              className="rounded-full px-5 py-2 text-sm font-medium transition-all duration-200"
+              style={{
+                background: isActive ? 'var(--choc-primary)' : 'white',
+                color: isActive ? 'white' : 'var(--choc-medium)',
+                border: isActive ? 'none' : '1px solid var(--choc-light)',
+                fontFamily: "'DM Sans', sans-serif"
+              }}
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

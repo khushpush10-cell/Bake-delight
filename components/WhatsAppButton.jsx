@@ -1,10 +1,19 @@
 "use client";
 
 import { MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { isDeliveryTimeValid } from "@/components/DeliveryPicker";
+import { useStoreSettings } from "@/context/StoreSettingsContext";
 
 export default function WhatsAppButton({ items, total, customer, deliveryAt, disabled }) {
+  const { settings } = useStoreSettings();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const buildMessage = () => {
     const itemLines = items
       .map(
@@ -19,7 +28,7 @@ export default function WhatsAppButton({ items, total, customer, deliveryAt, dis
       timeStyle: "short"
     });
 
-    return `Hello! I'd like to place an order from Bake Delight 🎂
+    return `Hello! I'd like to place an order from ${mounted ? settings.storeName : "Bake Delight"} 🎂
 
 *Order Details:*
 ${itemLines}
@@ -45,9 +54,9 @@ Thank you!`;
       return;
     }
 
-    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923001234567";
     const message = encodeURIComponent(buildMessage());
-    window.open(`https://wa.me/${number}?text=${message}`, "_blank", "noopener,noreferrer");
+    const whatsappNumber = mounted ? settings.whatsappNumber : "923001234567";
+    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank", "noopener,noreferrer");
   };
 
   return (

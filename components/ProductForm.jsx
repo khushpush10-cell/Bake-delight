@@ -42,11 +42,13 @@ export default function ProductForm({ productId, initialProduct }) {
     if (!file) return;
     setUploading(true);
     try {
+      console.log('Starting image upload for:', file.name);
       const url = await uploadToCloudinary(file);
       updateField("imageUrl", url);
-      toast.success("Image uploaded");
+      toast.success("Image uploaded successfully!");
     } catch (error) {
-      toast.error(error.message);
+      console.error('Image upload error:', error);
+      toast.error(`Image upload failed: ${error.message}`);
     } finally {
       setUploading(false);
     }
@@ -148,12 +150,26 @@ export default function ProductForm({ productId, initialProduct }) {
       <div>
         <label className="label">Product Image</label>
         <label className="flex cursor-pointer items-center justify-center gap-3 rounded-2xl border border-dashed border-border bg-background p-5 font-semibold text-primary">
-          <ImagePlus size={20} />
-          {uploading ? "Uploading..." : "Upload Image"}
+          {uploading ? (
+            <>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary border-t-transparent"></div>
+              <span>Uploading...</span>
+            </>
+          ) : (
+            <>
+              <ImagePlus size={20} />
+              <span>Upload Image</span>
+            </>
+          )}
           <input type="file" accept="image/*" className="hidden" onChange={handleUpload} />
         </label>
         {form.imageUrl && (
           <div className="relative mt-4 aspect-video max-w-md overflow-hidden rounded-2xl border border-border">
+            <div className="absolute top-2 right-2 bg-green-500 text-white rounded-full p-1">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 1.414L8.586 10H4a1 1 0 00-1 1v3a1 1 0 001 1h4.586l4.293 4.293a1 1 0 001.414 0z" clipRule="evenodd" />
+              </svg>
+            </div>
             <Image src={form.imageUrl} alt="Product preview" fill className="object-cover" />
           </div>
         )}

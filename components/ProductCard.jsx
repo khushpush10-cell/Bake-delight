@@ -8,35 +8,78 @@ export default function ProductCard({ product, className = "" }) {
   const { addToCart } = useCart();
 
   return (
-    <article className={`group overflow-hidden rounded-2xl border-2 border-gold bg-white shadow-sm transform hover:scale-[1.02] transition-all duration-300 hover:shadow-md ${className}`}>
-      <div className="relative h-56 overflow-hidden">
+    <article 
+      className={`group product-card-premium ${className}`}
+    >
+      {/* Image Container */}
+      <div className="relative h-[240px] overflow-hidden">
         <Image
           src={product.imageUrl}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition duration-300 group-hover:scale-105"
+          className="object-cover card-image transition-transform duration-500 ease-out"
           loading="lazy"
-          placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
         />
-        <span className="absolute top-3 left-3 rounded-full bg-gold px-3 py-1 text-xs font-bold text-white">
+        
+        {/* Category Badge */}
+        <span 
+          className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[10px] uppercase tracking-[2px] font-medium text-white"
+          style={{ background: 'var(--choc-accent)' }}
+        >
           {product.category}
         </span>
       </div>
-      <div className="p-5">
-        <h3 className="font-playfair text-xl font-bold chocolate-text">{product.name}</h3>
-        <p className="mt-3 min-h-12 text-sm leading-6 text-brown line-clamp-2">
+      
+      {/* Card Body */}
+      <div className="p-5 lg:p-6">
+        {/* Product Name */}
+        <h3 
+          className="text-[22px] leading-tight mb-1.5"
+          style={{ 
+            fontFamily: "'Cormorant Garamond', serif",
+            fontWeight: 700,
+            color: 'var(--choc-dark)'
+          }}
+        >
+          {product.name}
+        </h3>
+        
+        {/* Description */}
+        <p 
+          className="text-[13px] leading-[1.6] mb-4 line-clamp-2"
+          style={{ 
+            color: 'var(--choc-medium)',
+            fontFamily: "'DM Sans', sans-serif"
+          }}
+        >
           {product.description}
         </p>
-        <div className="mt-4 text-xl font-bold chocolate-text">
+        
+        {/* Price */}
+        <div 
+          className="text-[24px] font-bold mb-4"
+          style={{ 
+            fontFamily: "'Cormorant Garamond', serif",
+            color: 'var(--choc-primary)'
+          }}
+        >
           Rs. {Number(product.price).toLocaleString("en-PK")}
         </div>
+        
+        {/* Add to Cart Button */}
         <button 
-          className="mt-5 w-full chocolate-bg text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 hover:brightness-90 cursor-pointer flex items-center justify-center gap-2" 
+          className="w-full h-[46px] rounded-[10px] text-white text-[13px] font-medium tracking-wide flex items-center justify-center gap-2 transition-all duration-300"
+          style={{ background: 'var(--choc-primary)', fontFamily: "'DM Sans', sans-serif" }}
           onClick={() => addToCart(product)}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--choc-dark)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'var(--choc-primary)';
+          }}
         >
-          <ShoppingCart size={18} />
+          <ShoppingCart size={16} />
           Add to Cart
         </button>
       </div>
