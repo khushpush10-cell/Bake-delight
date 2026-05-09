@@ -7,11 +7,13 @@
 :root {
   color-scheme: light;
   
-  /* Main lavender - soft and dreamy like the image */
-  --lavender-deep: #6B5B9E;
-  --lavender-primary: #C4B5E8;
-  --lavender-soft: #DDD6F3;
-  --lavender-pale: #F0ECFF;
+  /* Purple palette - matching reference image */
+  --purple-deep: #4A3880;
+  --purple-primary: #7B68B5;
+  --purple-medium: #C4B5E8;
+  --purple-soft: #DDD6F3;
+  --purple-pale: #EDE8FF;
+  --purple-lightest: #F5F2FF;
 
   /* Peach/blush - warm like macarons and ribbon */
   --peach-primary: #F4C2B0;
@@ -19,26 +21,23 @@
   --peach-pale: #FFF5F2;
 
   /* Gold - for ornamental details */
-  --gold-accent: #D4A840;
-  --gold-dark: #B8900A;
+  --gold: #D4A840;
+  --gold-light: #F7E07A;
 
   /* Text - soft dark purple not harsh black */
   --text-dark: #2A1F4E;
-  --text-medium: #6B5B9E;
+  --text-medium: #5A4880;
   --text-muted: #9B8FBB;
 
   /* Backgrounds - pure and airy */
+  --bg-white: #FFFFFF;
   --bg-main: #FDFCFF;
-  --bg-surface: #FFFFFF;
-  --bg-section: #F7F4FF;
+  --border: #E8E0F8;
 
-  /* Borders */
-  --border-soft: #E8E0F8;
-
-  /* WhatsApp stays same */
+  /* WhatsApp and status */
   --wa-green: #25D366;
-  --success: #16a34a;
   --error: #dc2626;
+  --success: #16a34a;
 }
 
 * {
@@ -59,10 +58,10 @@ body {
   line-height: 1.7;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  line-height: 1.2;
   color: var(--text-dark);
 }
 
@@ -71,7 +70,7 @@ p, span, a, button, input, textarea, select, label {
 }
 
 ::selection {
-  background: var(--lavender-primary);
+  background: var(--purple-primary);
   color: white;
 }
 
@@ -102,18 +101,23 @@ a {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(1deg); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
 }
 
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+@keyframes floatSide {
+  0%, 100% { transform: translateY(0px) rotate(-5deg); }
+  50% { transform: translateY(-8px) rotate(5deg); }
 }
 
 @keyframes sparkle {
-  0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+  0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.3) rotate(20deg); }
+}
+
+@keyframes heartFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+  50% { transform: translateY(-10px) scale(1.1); opacity: 1; }
 }
 
 .float-animation { animation: float 4s ease-in-out infinite; }
@@ -162,7 +166,7 @@ a {
 
 /* Announcement bar styles */
 .announcement-bar {
-  background: var(--lavender-deep);
+  background: var(--purple-primary);
   color: white;
 }
 
@@ -174,7 +178,7 @@ a {
 
 /* Section backgrounds */
 .how-it-works-bg {
-  background: var(--lavender-deep);
+  background: var(--purple-primary);
 }
 
 .footer-bg {
@@ -183,7 +187,7 @@ a {
 
 /* Utility Classes */
 .skeleton {
-  background: linear-gradient(90deg, var(--lavender-pale) 25%, var(--border-soft) 50%, var(--lavender-pale) 75%);
+  background: linear-gradient(90deg, var(--purple-pale) 25%, var(--border) 50%, var(--purple-pale) 75%);
   background-size: 1000px 100%;
   animation: shimmer 2s infinite;
 }
@@ -201,7 +205,7 @@ a {
 }
 
 .pattern-bg {
-  background-image: radial-gradient(circle, var(--lavender-soft) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--purple-soft) 1px, transparent 1px);
   background-size: 28px 28px;
   background-color: var(--bg-main);
 }
@@ -213,24 +217,22 @@ a {
   overflow: hidden;
 }
 
-.ornament-divider {
-  position: relative;
-  height: 1px;
-  background: var(--lavender-primary);
-  width: 120px;
-  margin: 24px 0;
+.gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.ornament-divider::before {
-  content: '◆';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--bg-main);
-  color: var(--lavender-primary);
-  padding: 0 12px;
-  font-size: 14px;
+.gold-divider-line {
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.gold-divider-diamond {
+  width: 12px;
+  height: 12px;
 }
 
 .underline-slide {
@@ -244,7 +246,7 @@ a {
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--peach-primary);
+  background: var(--gold);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -283,7 +285,7 @@ a {
 
 /* Pattern dot background for hero */
 .pattern-dots {
-  background-image: radial-gradient(circle, var(--lavender-soft) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--purple-soft) 1px, transparent 1px);
   background-size: 28px 28px;
   background-color: var(--bg-main);
 }
@@ -292,59 +294,58 @@ a {
   /* Button Components - Pastel Theme */
   .btn-primary-lav {
     @apply inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium tracking-wide transition-all duration-300;
-    background: var(--lavender-deep);
+    background: var(--purple-primary);
     color: white;
-    border-radius: 28px;
+    border-radius: 8px;
   }
   
   .btn-primary-lav:hover {
-    background: #6A5A9E;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(123, 104, 181, 0.35);
+    background: var(--purple-deep);
+    transform: translateY(-2px);
   }
   
   .btn-secondary-lav {
     @apply inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium tracking-wide transition-all duration-300;
-    background: var(--peach-pale);
-    color: var(--text-dark);
-    border: 1.5px solid var(--peach-primary);
-    border-radius: 28px;
+    background: transparent;
+    color: var(--purple-primary);
+    border: 2px solid var(--peach-primary);
+    border-radius: 8px;
   }
   
   .btn-secondary-lav:hover {
-    background: var(--peach-soft);
+    background: var(--peach-pale);
   }
   
   /* Card Components - Pastel Theme */
   .product-card-premium {
-    background: var(--bg-main);
-    border: 1.5px solid var(--border-soft);
-    border-radius: 24px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s ease;
   }
   
   .product-card-premium:hover {
-    box-shadow: 0 20px 50px rgba(123, 104, 181, 0.15);
+    box-shadow: 0 24px 60px rgba(123, 104, 181, 0.15);
     transform: translateY(-8px);
   }
   
   .product-card-premium:hover .card-image {
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
   
   /* Form Components - Pastel Theme */
   .field-lav {
     @apply w-full border px-4 py-3 text-sm outline-none transition-all duration-200;
-    border-color: var(--border-soft);
+    border-color: var(--border);
     background: white;
     color: var(--text-dark);
     border-radius: 12px;
   }
   
   .field-lav:focus {
-    border-color: var(--lavender-primary);
-    box-shadow: 0 0 0 3px rgba(184, 169, 217, 0.15);
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 3px rgba(123, 104, 181, 0.15);
   }
   
   .field-lav-white {
@@ -367,7 +368,7 @@ a {
   /* Admin Components */
   .admin-card {
     @apply rounded-2xl border bg-white p-6 shadow-sm;
-    border-color: var(--border-soft);
+    border-color: var(--border);
   }
 }
 

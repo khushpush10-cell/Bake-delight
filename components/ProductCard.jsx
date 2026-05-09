@@ -3,7 +3,23 @@
 import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import { GoldSparkle, SmallFlower } from "@/components/illustrations/BakeryIllustrations";
+// Inline SVG components
+const GoldSparkle = ({ size = 12 }) => (
+  <svg width={size} height={size} viewBox="0 0 14 14" fill="none">
+    <path d="M7 1L8.4 5.6L13 7L8.4 8.4L7 13L5.6 8.4L1 7L5.6 5.6Z" fill="#D4A840"/>
+  </svg>
+);
+
+const SmallFlower = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 30 30" fill="none">
+    <ellipse cx="15" cy="8" rx="4" ry="6" fill="#F4C2B0" opacity="0.9"/>
+    <ellipse cx="22" cy="15" rx="6" ry="4" fill="#F4C2B0" opacity="0.9"/>
+    <ellipse cx="15" cy="22" rx="4" ry="6" fill="#FAE0D8" opacity="0.9"/>
+    <ellipse cx="8" cy="15" rx="6" ry="4" fill="#FAE0D8" opacity="0.9"/>
+    <circle cx="15" cy="15" r="4" fill="#D4A840" opacity="0.8"/>
+    <circle cx="15" cy="15" r="2.5" fill="#F7E07A"/>
+  </svg>
+);
 
 export default function ProductCard({ product, className = "" }) {
   const { addToCart } = useCart();
@@ -31,7 +47,7 @@ export default function ProductCard({ product, className = "" }) {
         {/* Category Badge - Pastel lavender */}
         <span 
           className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[10px] uppercase tracking-[2px] font-medium text-white"
-          style={{ background: 'var(--lavender-deep)' }}
+          style={{ background: 'var(--purple-primary)' }}
         >
           {product.category}
         </span>
@@ -69,7 +85,7 @@ export default function ProductCard({ product, className = "" }) {
             className="text-[24px] font-bold"
             style={{ 
               fontFamily: "'Playfair Display', serif",
-              color: 'var(--lavender-deep)'
+              color: 'var(--purple-primary)'
             }}
           >
             Rs. {Number(product.price).toLocaleString("en-PK")}
@@ -83,16 +99,16 @@ export default function ProductCard({ product, className = "" }) {
         <button 
           className="w-full h-[46px] text-white text-[13px] font-medium tracking-wide flex items-center justify-center gap-2 transition-all duration-300"
           style={{ 
-            background: 'var(--lavender-deep)', 
+            background: 'var(--purple-primary)', 
             fontFamily: "'DM Sans', sans-serif",
-            borderRadius: '24px'
+            borderRadius: '8px'
           }}
           onClick={() => addToCart(product)}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'var(--lavender-primary)';
+            e.currentTarget.style.background = 'var(--purple-deep)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'var(--lavender-deep)';
+            e.currentTarget.style.background = 'var(--purple-primary)';
           }}
         >
           <ShoppingCart size={16} />

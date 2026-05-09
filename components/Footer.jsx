@@ -4,7 +4,14 @@ import Link from "next/link";
 import { Instagram, Facebook, MessageCircle, Twitter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useStoreSettings } from "@/context/StoreSettingsContext";
-import { LavenderSprig, FloatingHeart, GoldSparkle } from "@/components/illustrations/BakeryIllustrations";
+import { LavenderSprig, FloatingHeart } from "@/components/illustrations/BakeryIllustrations";
+
+// Gold Sparkle inline
+const GoldSparkle = ({ size = 12 }) => (
+  <svg width={size} height={size} viewBox="0 0 14 14" fill="none">
+    <path d="M7 1L8.4 5.6L13 7L8.4 8.4L7 13L5.6 8.4L1 7L5.6 5.6Z" fill="#D4A840"/>
+  </svg>
+);
 
 // TikTok SVG Icon Component
 const TikTokIcon = ({ className }) => (
@@ -20,10 +27,10 @@ const SocialIcon = ({ href, children, show }) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[var(--lavender-primary)]"
+      className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[var(--purple-primary)]"
       style={{ 
-        border: '1.5px solid var(--lavender-primary)',
-        color: 'var(--lavender-soft)'
+        border: '1.5px solid var(--purple-medium)',
+        color: 'var(--purple-soft)'
       }}
     >
       {children}
@@ -51,8 +58,8 @@ export default function Footer() {
         <LavenderSprig size={140} />
       </div>
       
-      {/* Top border - lavender accent */}
-      <div style={{ borderTop: '3px solid var(--lavender-primary)' }} />
+      {/* Top border - purple accent */}
+      <div style={{ borderTop: '2px solid var(--purple-medium)' }} />
       
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-20 py-16 relative z-10">
@@ -65,7 +72,7 @@ export default function Footer() {
                 className="text-2xl font-bold italic"
                 style={{ 
                   fontFamily: "'Playfair Display', serif", 
-                  color: 'var(--lavender-soft)'
+                  color: 'white'
                 }}
               >
                 {mounted ? settings.storeName : "Bake Delight"}
@@ -117,10 +124,10 @@ export default function Footer() {
                 href={`https://wa.me/${mounted ? settings.whatsappNumber : "923001234567"}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[var(--lavender-primary)]"
+                className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-[var(--purple-primary)]"
                 style={{ 
-                  border: '1.5px solid var(--lavender-primary)',
-                  color: 'var(--lavender-soft)'
+                  border: '1.5px solid var(--purple-medium)',
+                  color: 'var(--purple-soft)'
                 }}
               >
                 <MessageCircle size={18} />
@@ -137,7 +144,7 @@ export default function Footer() {
             <h4 
               className="text-xs uppercase tracking-[2px] mb-6"
               style={{ 
-                color: 'var(--lavender-primary)',
+                color: 'var(--purple-medium)',
                 fontFamily: "'DM Sans', sans-serif",
                 fontWeight: 500
               }}
@@ -180,7 +187,7 @@ export default function Footer() {
             <h4 
               className="text-xs uppercase tracking-[2px] mb-6"
               style={{ 
-                color: 'var(--lavender-primary)',
+                color: 'var(--purple-medium)',
                 fontFamily: "'DM Sans', sans-serif",
                 fontWeight: 500
               }}
@@ -232,7 +239,7 @@ export default function Footer() {
             <h4 
               className="text-xs uppercase tracking-[2px] mb-6"
               style={{ 
-                color: 'var(--lavender-primary)',
+                color: 'var(--purple-medium)',
                 fontFamily: "'DM Sans', sans-serif",
                 fontWeight: 500
               }}
@@ -245,7 +252,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-lg font-medium transition-colors duration-200"
-                style={{ color: 'var(--lavender-soft)', fontFamily: "'DM Sans', sans-serif" }}
+                style={{ color: 'white', fontFamily: "'DM Sans', sans-serif" }}
               >
                 +{mounted ? settings.whatsappNumber : "923001234567"}
               </a>

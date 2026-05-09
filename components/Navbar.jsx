@@ -6,7 +6,12 @@ import { Menu, ShoppingCart, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { useStoreSettings } from "@/context/StoreSettingsContext";
-import { Sparkle } from "@/components/illustrations/BakeryIllustrations";
+// Gold sparkle SVG inline
+const GoldSparkle = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 14 14" fill="none">
+    <path d="M7 1L8.4 5.6L13 7L8.4 8.4L7 13L5.6 8.4L1 7L5.6 5.6Z" fill="#D4A840"/>
+  </svg>
+);
 
 const links = [
   { href: "/", label: "Home" },
@@ -41,7 +46,7 @@ export default function Navbar() {
       {/* Top Announcement Bar with Marquee */}
       <div 
         className="overflow-hidden whitespace-nowrap"
-        style={{ background: 'var(--lavender-deep)', height: '36px' }}
+        style={{ background: 'var(--purple-primary)', height: '36px' }}
       >
         <div className="marquee-track flex items-center h-full">
           {[...Array(4)].map((_, i) => (
@@ -63,7 +68,7 @@ export default function Navbar() {
           background: scrolled ? 'rgba(255, 255, 255, 0.97)' : 'white',
           backdropFilter: scrolled ? 'blur(12px)' : 'none',
           boxShadow: scrolled ? '0 4px 24px rgba(123, 104, 181, 0.1)' : 'none',
-          borderBottom: '2px solid var(--lavender-pale)'
+          borderBottom: '1px solid var(--border)'
         }}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8" style={{ height: '70px' }}>
@@ -71,17 +76,11 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2">
             <span 
               className="text-[24px] font-bold italic"
-              style={{ fontFamily: "'Playfair Display', serif", color: 'var(--lavender-deep)' }}
+              style={{ fontFamily: "'Playfair Display', serif", color: 'var(--text-dark)' }}
             >
-              Bake
+              Bake Delight
             </span>
-            <Sparkle size={18} color="var(--gold-accent)" />
-            <span 
-              className="text-[24px] font-bold italic"
-              style={{ fontFamily: "'Playfair Display', serif", color: 'var(--lavender-deep)' }}
-            >
-              {mounted ? settings.storeName?.replace('Bake ', '') : 'Delight'}
-            </span>
+            <GoldSparkle size={14} />
           </Link>
 
           {/* Desktop Nav Links */}
@@ -92,7 +91,7 @@ export default function Navbar() {
                 href={link.href}
                 className="underline-slide relative text-[13px] font-medium uppercase tracking-[1.5px] transition-colors duration-300"
                 style={{ 
-                  color: pathname === link.href ? 'var(--lavender-deep)' : 'var(--text-medium)',
+                  color: pathname === link.href ? 'var(--purple-primary)' : 'var(--text-medium)',
                   fontFamily: "'DM Sans', sans-serif"
                 }}
               >
@@ -109,7 +108,7 @@ export default function Navbar() {
               href="/cart"
               className="relative flex items-center gap-2 px-6 py-2 text-white text-[13px] font-medium transition-all duration-300"
               style={{ 
-                background: 'var(--lavender-deep)', 
+                background: 'var(--purple-primary)', 
                 borderRadius: '24px'
               }}
             >
@@ -119,7 +118,7 @@ export default function Navbar() {
                 <span 
                   className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold"
                   style={{ 
-                    background: 'var(--gold-accent)', 
+                    background: 'var(--gold)', 
                     color: 'var(--text-dark)'
                   }}
                 >
@@ -133,8 +132,8 @@ export default function Navbar() {
           <button
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg md:hidden transition-all duration-200"
             style={{ 
-              border: '1.5px solid var(--lavender-pale)',
-              color: 'var(--lavender-deep)'
+              border: '1.5px solid var(--purple-soft)',
+              color: 'var(--purple-primary)'
             }}
             onClick={() => setOpen((value) => !value)}
             aria-label="Toggle navigation"
@@ -177,7 +176,7 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className="mt-4 flex items-center justify-center gap-2 py-3 text-white font-medium"
                 style={{ 
-                  background: 'var(--lavender-deep)',
+                  background: 'var(--purple-primary)',
                   borderRadius: '24px'
                 }}
               >
