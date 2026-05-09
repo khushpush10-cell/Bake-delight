@@ -17,24 +17,36 @@ export default function AdminDashboardPage() {
     const fetchStats = async () => {
       try {
         setLoading(true);
+        console.log('Dashboard: Starting fetch...');
+        
         const db = getFirebaseDb();
+        console.log('Dashboard: Got DB instance');
         
         const [productsSnapshot, categoriesSnapshot] = await Promise.all([
           getDocs(collection(db, "products")),
           getDocs(collection(db, "categories"))
         ]);
         
+        console.log('Dashboard: Got snapshots', productsSnapshot.size, categoriesSnapshot.size);
+        
         setProducts(productsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
         setCategories(categoriesSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       } catch (error) {
-        console.error('Error fetching stats:', error);
-        toast.error('Failed to load dashboard stats');
+        console.error('Dashboard Error:', error);
+        toast.error('Failed to load: ' + error.message);
       } finally {
+        console.log('Dashboard: Setting loading false');
         setLoading(false);
       }
     };
 
-    fetchStats();
+    // Timeout safety - force stop loading after 10 seconds
+    const timeoutId = setTimeout(() => {
+      console.log('Dashboard: Timeout reached, forcing loading false');
+      setLoading(false);
+    }, 10000);
+
+    fetchStats().then(() => clearTimeout(timeoutId));
   }, []);
 
   const stats = useMemo(
