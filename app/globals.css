@@ -7,23 +7,35 @@
 :root {
   color-scheme: light;
   
-  /* Pastel Bakery Color System - Lavender & Peach */
-  --lavender-deep: #7B68B5;
-  --lavender-primary: #B8A9D9;
-  --lavender-soft: #D4CCF0;
-  --lavender-pale: #EDE8FF;
-  --peach-primary: #F2C4A0;
-  --peach-soft: #FAE0CC;
-  --peach-pale: #FFF0E8;
-  --gold-accent: #F7E07A;
-  --gold-dark: #D4A820;
-  --text-dark: #2D1F3D;
-  --text-medium: #5A4570;
-  --text-muted: #9B8AAA;
-  --bg-main: #FAF7FF;
+  /* Main lavender - soft and dreamy like the image */
+  --lavender-deep: #6B5B9E;
+  --lavender-primary: #C4B5E8;
+  --lavender-soft: #DDD6F3;
+  --lavender-pale: #F0ECFF;
+
+  /* Peach/blush - warm like macarons and ribbon */
+  --peach-primary: #F4C2B0;
+  --peach-soft: #FAE0D8;
+  --peach-pale: #FFF5F2;
+
+  /* Gold - for ornamental details */
+  --gold-accent: #D4A840;
+  --gold-dark: #B8900A;
+
+  /* Text - soft dark purple not harsh black */
+  --text-dark: #2A1F4E;
+  --text-medium: #6B5B9E;
+  --text-muted: #9B8FBB;
+
+  /* Backgrounds - pure and airy */
+  --bg-main: #FDFCFF;
   --bg-surface: #FFFFFF;
-  --bg-section: #F5F0FF;
-  --border-soft: #E0D8F5;
+  --bg-section: #F7F4FF;
+
+  /* Borders */
+  --border-soft: #E8E0F8;
+
+  /* WhatsApp stays same */
   --wa-green: #25D366;
   --success: #16a34a;
   --error: #dc2626;
@@ -44,12 +56,13 @@ body {
   color: var(--text-dark);
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--text-dark);
 }
 
@@ -89,8 +102,43 @@ a {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(1deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(15deg); }
+}
+
+.float-animation { animation: float 4s ease-in-out infinite; }
+.float-slow { animation: floatSlow 5s ease-in-out infinite; }
+.sparkle-animation { animation: sparkle 3s ease-in-out infinite; }
+
+/* Decorative elements */
+.deco-element {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  z-index: 0;
+}
+.deco-element * {
+  pointer-events: none;
+}
+/* Make sure all content stays above decorations */
+.hero-content, .section-content, .product-card-content {
+  position: relative;
+  z-index: 1;
+}
+/* Subtle dot pattern for hero background */
+.hero-dot-pattern {
+  background-image: radial-gradient(circle, #DDD6F3 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Utility Classes */
