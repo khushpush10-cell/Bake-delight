@@ -34,7 +34,7 @@ export default function ProductCard({ product, className = "" }) {
       </div>
       
       {/* Image Container */}
-      <div className="relative h-[240px] overflow-hidden" style={{ borderRadius: '20px 20px 0 0' }}>
+      <div className="relative h-[260px] overflow-hidden" style={{ borderRadius: '20px 20px 0 0' }}>
         <Image
           src={product.imageUrl}
           alt={product.name}
@@ -46,7 +46,7 @@ export default function ProductCard({ product, className = "" }) {
         
         {/* Category Badge - Pastel lavender */}
         <span 
-          className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[10px] uppercase tracking-[2px] font-medium text-white"
+          className="absolute left-12 top-12 px-3 py-1 rounded-full text-[10px] uppercase tracking-[2px] font-medium text-white"
           style={{ background: 'var(--purple-primary)' }}
         >
           {product.category}
@@ -72,7 +72,7 @@ export default function ProductCard({ product, className = "" }) {
         <p 
           className="text-[13px] leading-[1.6] mb-4 line-clamp-2"
           style={{ 
-            color: 'var(--text-medium)',
+            color: 'var(--text-muted)',
             fontFamily: "'DM Sans', sans-serif"
           }}
         >
@@ -97,7 +97,7 @@ export default function ProductCard({ product, className = "" }) {
         
         {/* Add to Cart Button - Lavender theme */}
         <button 
-          className="w-full h-[46px] text-white text-[13px] font-medium tracking-wide flex items-center justify-center gap-2 transition-all duration-300"
+          className="w-full h-[48px] text-white text-[13px] font-medium uppercase tracking-[1px] flex items-center justify-center gap-2 transition-all duration-300"
           style={{ 
             background: 'var(--purple-primary)', 
             fontFamily: "'DM Sans', sans-serif",

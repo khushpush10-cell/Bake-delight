@@ -39,7 +39,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const marqueeText = mounted ? settings.deliveryInfoText : "Free Delivery above Rs. 3,000  ·  Order 24hrs in Advance  ·  Freshly Baked Daily  ·  Made With Love  ·";
+  const marqueeText = mounted && settings.deliveryInfoText
+    ? settings.deliveryInfoText
+    : "Free Delivery on orders above Rs. 3,000  ·  Order 24hrs in Advance  ·  Freshly Baked Daily  ·  ";
 
   return (
     <>
@@ -49,10 +51,10 @@ export default function Navbar() {
         style={{ background: 'var(--purple-primary)', height: '36px' }}
       >
         <div className="marquee-track flex items-center h-full">
-          {[...Array(4)].map((_, i) => (
+          {[...Array(2)].map((_, i) => (
             <span 
               key={i} 
-              className="mx-8 text-[11px] tracking-[2px] uppercase"
+              className="mx-8 text-[12px] tracking-[2px]"
               style={{ color: 'white' }}
             >
               ✦ {marqueeText}
@@ -71,7 +73,7 @@ export default function Navbar() {
           borderBottom: '1px solid var(--border)'
         }}
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8" style={{ height: '70px' }}>
+        <nav className="mx-auto flex items-center justify-between px-6 lg:px-20" style={{ height: '68px' }}>
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <span 
@@ -84,12 +86,12 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden items-center gap-10 md:flex">
+          <div className="nav-links hidden items-center gap-16 md:flex">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="underline-slide relative text-[13px] font-medium uppercase tracking-[1.5px] transition-colors duration-300"
+                className="underline-slide relative text-[13px] font-medium uppercase tracking-[2px] transition-colors duration-300"
                 style={{ 
                   color: pathname === link.href ? 'var(--purple-primary)' : 'var(--text-medium)',
                   fontFamily: "'DM Sans', sans-serif"
@@ -113,7 +115,7 @@ export default function Navbar() {
               }}
             >
               <ShoppingCart size={16} />
-              <span>Cart</span>
+              <span>CART ({itemCount})</span>
               {itemCount > 0 && (
                 <span 
                   className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold"

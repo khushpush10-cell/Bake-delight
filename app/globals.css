@@ -38,6 +38,15 @@
   --wa-green: #25D366;
   --error: #dc2626;
   --success: #16a34a;
+
+  /* Compatibility aliases used by existing pages/components */
+  --lavender-deep: #4A3880;
+  --lavender-primary: #7B68B5;
+  --lavender-soft: #DDD6F3;
+  --lavender-pale: #EDE8FF;
+  --gold-accent: #D4A840;
+  --bg-section: #FDFCFF;
+  --border-soft: #E8E0F8;
 }
 
 * {
@@ -106,8 +115,8 @@ a {
 }
 
 @keyframes floatSide {
-  0%, 100% { transform: translateY(0px) rotate(-5deg); }
-  50% { transform: translateY(-8px) rotate(5deg); }
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
 }
 
 @keyframes sparkle {
@@ -121,6 +130,7 @@ a {
 }
 
 .float-animation { animation: float 4s ease-in-out infinite; }
+.float-side { animation: floatSide 5s ease-in-out infinite; }
 .float-slow { animation: floatSlow 5s ease-in-out infinite; }
 .sparkle-animation { animation: sparkle 3s ease-in-out infinite; }
 
@@ -324,6 +334,23 @@ a {
     overflow: hidden;
     transition: all 0.3s ease;
   }
+
+  .product-card-lav {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .product-card-lav:hover {
+    box-shadow: 0 24px 60px rgba(123, 104, 181, 0.15);
+    transform: translateY(-8px);
+  }
+
+  .product-card-lav:hover .card-image {
+    transform: scale(1.06);
+  }
   
   .product-card-premium:hover {
     box-shadow: 0 24px 60px rgba(123, 104, 181, 0.15);
@@ -364,6 +391,28 @@ a {
     border-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
   }
+
+  .field {
+    @apply w-full border px-4 py-3 text-sm outline-none transition-all duration-200;
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.13);
+    color: white;
+    border-radius: 12px;
+  }
+
+  .field::placeholder {
+    color: rgba(255, 255, 255, 0.58);
+  }
+
+  .field:focus {
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.10);
+  }
+
+  .label {
+    @apply mb-2 block text-xs font-medium uppercase tracking-[1px];
+    color: rgba(255, 255, 255, 0.74);
+  }
   
   /* Admin Components */
   .admin-card {
@@ -374,14 +423,15 @@ a {
 
 /* Mobile Responsive Rules */
 @media (max-width: 768px) {
-  .hero-section { grid-template-columns: 1fr; min-height: auto; padding: 80px 24px 40px; }
-  .hero-illustration { display: none; }
+  .hero-section { grid-template-columns: 1fr !important; min-height: auto; padding: 100px 24px 40px !important; text-align: center; }
+  .hero-illustration, .hero-illustration-area { display: none !important; }
   .hero-left { text-align: center; align-items: center; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .about-strip { grid-template-columns: 1fr; }
-  .steps-grid { grid-template-columns: 1fr; gap: 16px; }
+  .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 16px; }
+  .about-strip { grid-template-columns: 1fr !important; flex-direction: column; }
+  .steps-grid, .steps-row { grid-template-columns: 1fr !important; flex-direction: column; gap: 16px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .cart-layout { flex-direction: column; }
+  .nav-links { display: none !important; }
 }
 
 @media (max-width: 480px) {

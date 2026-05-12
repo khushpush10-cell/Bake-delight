@@ -29,7 +29,7 @@ const defaultSettings = {
   storeName: "Bake Delight",
   storeTagline: "Homemade with Love",
   footerDescription: "Fresh home-baked cakes, cookies, pastries and custom treats made with love.",
-  deliveryInfoText: "🎂 Free delivery on orders above Rs. 3,000 · Order 24hrs in advance",
+  deliveryInfoText: "Free Delivery on orders above Rs. 3,000  ·  Order 24hrs in Advance  ·  Freshly Baked Daily  ·  ",
   
   // Store Hours / Availability
   storeOpen: true,

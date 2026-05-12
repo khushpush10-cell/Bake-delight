@@ -186,7 +186,7 @@ export default function CartPage() {
             <aside className="lg:sticky lg:top-28 h-fit">
               <div 
                 className="rounded-[24px] p-7 relative overflow-hidden"
-                style={{ background: 'var(--lavender-deep)' }}
+                style={{ background: 'linear-gradient(145deg, #7B68B5, #4A3880)' }}
               >
                 {/* Decorative sparkle */}
                 <div className="absolute top-4 right-4 opacity-40">
