@@ -5,7 +5,9 @@ import { ArrowRight, CalendarDays, Gift, Heart, ListChecks, ShoppingBag, Star } 
 import Footer from "@/components/Footer";
 import MenuClient from "@/components/MenuClient";
 import Navbar from "@/components/Navbar";
-import { CakeOnStand, FloatingHeart, GoldSparkle, LavenderSprig, Macaron, OrnamentalCorner } from "@/components/illustrations/BakeryIllustrations";
+import { LavenderSprig } from "@/components/illustrations/BakeryIllustrations";
+
+const BAKERY_ILLUSTRATION_URL = "https://res.cloudinary.com/dm9n4rrm8/image/upload/v1778571549/ddddddddddddd_lheiya.png";
 
 const GoldDiamond = ({ size = 12 }) => (
   <svg width={size} height={size} viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -36,30 +38,6 @@ const SectionHeader = ({ tag, title, light = false }) => (
     </div>
   </div>
 );
-
-const Cupcake = () => (
-  <svg width="65" height="72" viewBox="0 0 65 72" fill="none" aria-hidden="true">
-    <path d="M14 40 Q9 55 11 62 Q32 67 54 62 Q56 55 51 40Z" fill="#DDD6F3" />
-    <path d="M16 42 Q12 55 14 62 Q32 66 51 62 Q53 55 49 42Z" fill="#EDE8FF" />
-    <path d="M11 42 Q19 18 32 14 Q46 18 54 42Z" fill="#C4B5E8" />
-    <path d="M13 42 Q21 20 32 16 Q44 20 52 42Z" fill="#DDD6F3" />
-    <path d="M15 41 Q23 24 32 20 Q42 24 50 41" fill="#F4C2B0" opacity="0.8" />
-    <path d="M17 41 Q25 26 32 22 Q40 26 48 41" fill="#FAE0D8" />
-    <circle cx="32" cy="17" r="6" fill="#F4C2B0" />
-    <circle cx="32" cy="13" r="4" fill="#FAE0D8" />
-    <rect x="30" y="4" width="4" height="11" rx="2" fill="#EDE8FF" />
-    <ellipse cx="32" cy="3" rx="3.5" ry="5" fill="#D4A840" />
-    <circle cx="32" cy="1" r="2.5" fill="#F7E07A" />
-  </svg>
-);
-
-const heroSparkles = [
-  { top: "55px", right: "45px", size: 16, delay: "0s" },
-  { top: "160px", left: "18px", size: 12, delay: "1s" },
-  { bottom: "90px", right: "18px", size: 14, delay: "0.5s" },
-  { bottom: "160px", left: "45px", size: 10, delay: "1.5s" },
-  { top: "100px", right: "15px", size: 11, delay: "2s" }
-];
 
 const testimonials = [
   ["Ananya S.", "Karachi", "The lavender cake was like a dream! So light, so fresh, and beautifully made. You can taste the love."],
@@ -100,25 +78,65 @@ export default function HomePage() {
           </div>
 
           <div className="hero-illustration-area relative hidden items-center justify-center lg:flex">
-            <div className="relative h-[420px] w-[420px] overflow-hidden rounded-full" style={{ background: "radial-gradient(circle at 40% 40%, #F5F0FF 0%, #FAE0D8 100%)", border: "1px solid var(--border)" }}>
-              <OrnamentalCorner size={36} style={{ position: "absolute", top: 16, left: 16 }} />
-              <OrnamentalCorner size={36} style={{ position: "absolute", top: 16, right: 16, transform: "rotate(90deg)" }} />
-              <OrnamentalCorner size={36} style={{ position: "absolute", bottom: 16, right: 16, transform: "rotate(180deg)" }} />
-              <OrnamentalCorner size={36} style={{ position: "absolute", bottom: 16, left: 16, transform: "rotate(270deg)" }} />
-              <div className="float-animation absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <CakeOnStand size={260} />
-              </div>
-              <div className="float-side absolute bottom-[100px] right-[30px]">
-                <Macaron size={100} color="#C4B5E8" />
-              </div>
-              <div className="float-animation absolute right-[70px] top-[30px]" style={{ animationDuration: "6s" }}>
-                <Cupcake />
-              </div>
-              {[{ top: "75px", left: "40px", size: 20 }, { bottom: "110px", right: "40px", size: 16 }, { top: "200px", left: "15px", size: 14 }].map((heart, index) => (
-                <FloatingHeart key={index} size={heart.size} style={{ position: "absolute", ...heart, animation: `heartFloat 4s ease-in-out ${index * 0.6}s infinite` }} />
+            <div style={{
+              width: "480px",
+              height: "480px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle at 40% 40%, #F5F0FF 0%, #FAE0D8 100%)",
+              border: "1px solid #E8E0F8",
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "visible"
+            }}>
+              <img
+                src={BAKERY_ILLUSTRATION_URL}
+                alt="Bake Delight bakery illustration"
+                style={{
+                  width: "115%",
+                  height: "115%",
+                  objectFit: "contain",
+                  animation: "float 4s ease-in-out infinite",
+                  position: "relative",
+                  zIndex: 2
+                }}
+              />
+
+              {[
+                { top: "20px", left: "20px", rotate: "0deg" },
+                { top: "20px", right: "20px", rotate: "90deg" },
+                { bottom: "20px", right: "20px", rotate: "180deg" },
+                { bottom: "20px", left: "20px", rotate: "270deg" }
+              ].map((pos, i) => (
+                <svg key={i} style={{ position: "absolute", ...pos, transform: `rotate(${pos.rotate})`, zIndex: 3 }} width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+                  <path d="M4 4 L4 16 Q4 4 16 4" stroke="#D4A840" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                  <circle cx="4" cy="4" r="2.5" fill="#D4A840" />
+                  <circle cx="10" cy="4" r="1.2" fill="#D4A840" opacity="0.5" />
+                  <circle cx="4" cy="10" r="1.2" fill="#D4A840" opacity="0.5" />
+                </svg>
               ))}
-              {heroSparkles.map((sparkle, index) => (
-                <GoldSparkle key={index} size={sparkle.size} style={{ position: "absolute", ...sparkle, animation: `sparkle 3s ease-in-out ${sparkle.delay} infinite` }} />
+
+              {[
+                { top: "45px", right: "50px", size: 16, delay: "0s" },
+                { bottom: "75px", left: "30px", size: 12, delay: "1s" },
+                { top: "130px", right: "18px", size: 10, delay: "0.5s" },
+                { bottom: "150px", right: "25px", size: 14, delay: "1.5s" },
+                { top: "80px", left: "25px", size: 11, delay: "2s" }
+              ].map((s, i) => (
+                <svg key={i} style={{ position: "absolute", top: s.top, right: s.right, bottom: s.bottom, left: s.left, animation: `sparkle 3s ease-in-out ${s.delay} infinite`, zIndex: 3 }} width={s.size} height={s.size} viewBox="0 0 14 14" aria-hidden="true">
+                  <path d="M7 1L8.4 5.6L13 7L8.4 8.4L7 13L5.6 8.4L1 7L5.6 5.6Z" fill="#D4A840" />
+                </svg>
+              ))}
+
+              {[
+                { top: "65px", left: "40px", size: 20, delay: "0s" },
+                { bottom: "95px", right: "40px", size: 16, delay: "1.2s" },
+                { top: "200px", left: "12px", size: 13, delay: "0.7s" }
+              ].map((h, i) => (
+                <svg key={i} style={{ position: "absolute", top: h.top, left: h.left, bottom: h.bottom, right: h.right, animation: `heartFloat 4s ease-in-out ${h.delay} infinite`, zIndex: 3 }} width={h.size} height={h.size} viewBox="0 0 18 16" aria-hidden="true">
+                  <path d="M9 14.5C9 14.5 1 9.5 1 4.5C1 2.3 2.8 0.5 5 0.5C6.6 0.5 8 1.4 9 2.8C10 1.4 11.4 0.5 13 0.5C15.2 0.5 17 2.3 17 4.5C17 9.5 9 14.5 9 14.5Z" fill="#F4C2B0" opacity="0.85" />
+                </svg>
               ))}
             </div>
           </div>
@@ -152,11 +170,17 @@ export default function HomePage() {
           <div className="relative flex items-center justify-center overflow-hidden p-12" style={{ background: "var(--purple-lightest)" }}>
             <LavenderSprig size={120} style={{ position: "absolute", left: 30, bottom: 30, opacity: 0.16 }} />
             <LavenderSprig size={120} style={{ position: "absolute", right: 30, top: 30, opacity: 0.16, transform: "scaleX(-1)" }} />
-            <div className="float-animation relative">
-              <CakeOnStand size={300} />
-              <GoldSparkle size={20} style={{ position: "absolute", right: -10, top: 0 }} />
-              <FloatingHeart size={18} style={{ position: "absolute", left: -20, top: 55 }} />
-            </div>
+            <img
+              src={BAKERY_ILLUSTRATION_URL}
+              alt="Bake Delight story illustration"
+              style={{
+                width: "80%",
+                maxWidth: "340px",
+                objectFit: "contain",
+                animation: "float 5s ease-in-out infinite",
+                filter: "drop-shadow(0 20px 40px rgba(123,104,181,0.2))"
+              }}
+            />
           </div>
           <div className="flex flex-col justify-center p-10 lg:p-16" style={{ background: "linear-gradient(145deg, #7B68B5, #4A3880)" }}>
             <span className="mb-5 w-fit px-4 py-1.5 text-[11px] uppercase tracking-[2px]" style={{ background: "var(--peach-pale)", color: "var(--purple-primary)" }}>
